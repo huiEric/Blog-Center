@@ -137,25 +137,38 @@ h4 span
 }
 .active
 {
-	font-size: 20px;
+
+	font-size: 18px;
 	color: #3f3f3f;
 	text-decoration: none;
 	font-weight: bolder;
-	color: #555555;
+	color: #b1b1b1;
+	font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 .register
 {
-	font-size: 20px;
+	font-size: 18px;
 	color: gray;
 	text-decoration: none;
 	font-weight: bold;
-	color: #b1b1b1;
+	color: #555555;
+	font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 .form
 {
 	width: 300px;
 	height: 251px;
 	margin:0 auto;
+}
+.notice
+{
+	width: 300px;
+	height: 31px;
+	margin:0 auto;
+	font-size: 5px;
+	margin-top: 10px;
+	font-weight: 100;
+	color: #555555;
 }
 .input
 {
@@ -185,10 +198,28 @@ h4 span
 {
 	content: '\f007';
 }
-#username
+#email
 {
 	display: inline-block;
 	margin: 30px auto 0;
+	border-radius:0 4px 4px 0;
+	border: 1px solid #cccccc;
+	width: 256px; 	
+    height: 44px;
+    padding: 4px 12px;
+    box-sizing: border-box;
+    font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+.fa-envelope:before
+{
+	content: '\f003';
+	font-size: 5px;
+	font-weight: 700;
+}
+#username
+{
+	display: inline-block;
+	margin: 15px auto 0;
 	border-radius:0 4px 4px 0;
 	border: 1px solid #cccccc;
 	width: 256px;
@@ -214,10 +245,10 @@ h4 span
     box-sizing: border-box;
     font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
-#login
+#register
 {
 	margin: 15px auto 10px;
-    background-color: #049cdb;
+    background-color: #49be38;
     color: white;
     text-align: center;
     line-height: 44px;
@@ -227,9 +258,9 @@ h4 span
     font-size: 18px;
     font-weight: 500;
 }
-#login:hover
+#register:hover
 {
-	background-color: #15a7f0;
+	background-color: #6bd95b;
 }
 .check
 {
@@ -254,6 +285,10 @@ h4 span
 	position: relative;
 	top: 3px;
 } 	
+.other
+{
+	margin-top: 50px;
+}
 #l4
 {
 	width: 300px;
@@ -266,6 +301,9 @@ h4 span
 	margin:10px auto 0;
 	text-align: center;
 	font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+	font-size: 15px;
+	color: #555555;
+	font-weight: 300;
 	font-size: 15px;
 }
 #login-sns

@@ -1,0 +1,221 @@
+body
+{
+	margin:0;
+	font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+a
+{
+	text-decoration: none;
+}
+#nav-bar
+{
+	width: 45px;
+	height: 100%;
+	background-color: #2a2a2a;
+	position: fixed;
+	left: 0;
+}
+#wonders
+{
+	width: 45px;
+	height: 45px;
+	color: white;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	display: block; 
+	font-weight: 1;
+}
+#wonders:hover
+{
+	background-color: #f49484;
+}
+#themes
+{
+	width: 45px;
+	height: 45px;
+	color: #999999;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	position: absolute;
+	top:45px;
+}
+#themes:hover
+{
+	background-color: #f49484;
+	color: white;
+}
+@font-face
+ {
+ 	font-family: 'FontAwesome';
+ 	src:url(../fonts/fontawesome-webfont.eot);
+ 	src:url(../fonts/fontawesome-webfont.eot?#iefix) format('embedded-opentype'),
+ 	url(../fonts/fontawesome-webfont.woff2) format('woff2'),
+ 	url(../fonts/fontawesome-webfont.woff) format('woff'),
+ 	url(../fonts/fontawesome-webfont.ttf) format('truetype'),
+ 	url(../fonts/fontawesome-webfont.svg#fontawesome-webfont) format('svg');
+ }
+  .fa
+{
+	display:inline-block;
+	font:normal normal normal 14px/1 FontAwesome;
+	font-size:inherit;
+	text-rendering:auto;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	transform:translate(0, 0);
+}
+.fa-themes:before
+ {
+ 	content: '\f009';
+ }
+ .logout
+ {
+ 	width: 45px;
+	height: 45px;
+	color: #999999;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	position: fixed;
+	bottom: 0;
+	text-decoration: none;
+	display: block;
+ }
+ .fa-logout:before
+ {
+ 	content: '\f08b';
+ }
+ .logout:hover
+ {
+ 	color: white;
+ }
+ .set
+ {
+ 	width: 45px;
+	height: 45px;
+	color: #999999;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	position: fixed;
+	bottom: 45px;
+	text-decoration: none;
+	display: block;
+ }
+ .fa-set:before
+ {
+ 	content: '\f085';
+ }
+ .set:hover
+ {
+ 	color: white;
+ }
+ .collection
+ {
+ 	width: 45px;
+	height: 45px;
+	color: #999999;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	position: fixed;
+	bottom: 90px;
+	text-decoration: none;
+	display: block;
+ }
+ .fa-collection:before
+ {
+ 	content: "\f02e";
+ }
+ .collection:hover
+ {
+ 	color: white;
+ }
+ .home
+ {
+ 	width: 45px;
+	height: 45px;
+	color: #999999;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	position: fixed;
+	bottom: 135px;
+	text-decoration: none;
+	display: block;
+ }
+ .fa-home:before
+ {
+ 	content: "\f007";
+ }
+ .home:hover
+ {
+ 	color: white;
+ }
+ .write
+ {
+ 	width: 45px;
+	height: 45px;
+	color: white;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	position: fixed;
+	top: 90px;
+	text-decoration: none;
+	display: block;
+	background-color: #e78170;
+ }
+ .fa-write:before
+ {
+ 	content: "\f040";
+ }
+ .write:hover
+ {
+ 	background-color: #f49484;
+ }
+ .bar
+ {
+ 	width: 100%;
+ 	height: 55px;
+ }
+ li
+ {
+ 	display: inline-block;
+ }
+ .title
+ {
+ 	display: block;
+ 	border:1px solid #e78170;
+ 	border-radius: 50%;
+ 	width: 32px;
+ 	height: 32px;
+ 	color: #e78170;
+ 	font-size: 18px;
+ 	text-align: center;
+ 	line-height: 32px;	
+ 	position: relative;
+ 	left: 70px;
+ 	top: 5px;
+ }
+ .fa-title:before
+ {
+ 	content: "\f1dc";
+ }
+ .category
+ {
+ 	display: block;
+ 	border:1px solid #e78170;
+ 	border-radius: 50%;
+ 	width: 32px;
+ 	height: 32px;
+ 	color: #e78170;
+ 	font-size: 18px;
+ 	text-align: center;
+ 	line-height: 32px;	
+ 	position: relative;
+ 	left: 80px;
+ 	top: 5px;
+ }
