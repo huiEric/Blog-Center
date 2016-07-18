@@ -3,6 +3,10 @@ body
 	margin:0;
 	font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
+a
+{
+	text-decoration: none; 
+}
 #nav-bar
 {
 	width: 45px;
@@ -13,24 +17,32 @@ body
 }
 #wonders
 {
+	font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 	width: 45px;
 	height: 45px;
 	color: white;
 	font-size: 18px;
 	text-align: center;
 	line-height: 45px;
-	background-color: #f49484;
+	background-color: #e78170;
+	display: block;
+	text-decoration: none;
 }
 #themes
 {
 	width: 45px;
 	height: 45px;
-	color: white;
+	color: #999999;
 	font-size: 18px;
 	text-align: center;
 	line-height: 45px;
 	position: absolute;
 	top:45px;
+}
+#themes:hover
+{
+	background-color: #f49484;
+	color: white;
 }
 #mid
 {
@@ -63,6 +75,8 @@ h2
 }
 #write
 {
+	display: block;
+	text-decoration: none;
 	position: relative;
 	left: 50px;
 	top: 330px;
@@ -78,6 +92,10 @@ h2
              "Microsoft YaHei", "微软雅黑", 
              STXihei, "华文细黑", 
              serif;
+}
+#write:hover
+{
+	background-color: #6bd95b;
 }
 #signup
 {
@@ -114,4 +132,28 @@ h2
 	font-size: 15px;
 	font-weight: 500;
 	text-decoration: none;
+}
+@font-face
+ {
+ 	font-family: 'FontAwesome';
+ 	src:url(../fonts/fontawesome-webfont.eot);
+ 	src:url(../fonts/fontawesome-webfont.eot?#iefix) format('embedded-opentype'),
+ 	url(../fonts/fontawesome-webfont.woff2) format('woff2'),
+ 	url(../fonts/fontawesome-webfont.woff) format('woff'),
+ 	url(../fonts/fontawesome-webfont.ttf) format('truetype'),
+ 	url(../fonts/fontawesome-webfont.svg#fontawesome-webfont) format('svg');
+ }
+  .fa
+{
+	display:inline-block;
+	font:normal normal normal 14px/1 FontAwesome;
+	font-size:inherit;
+	text-rendering:auto;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	transform:translate(0, 0);
+}
+.fath:before
+{
+	content: '\f009';
 }
