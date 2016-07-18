@@ -6,60 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>首页 - 博客园</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/signin.css">
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<div id="nav-bar">
-		<div>
-			<a href="index.html" id="wonders"><b>博</b></a>
+		<div id="wonders">
+			<b>博</b>
 		</div>
-		<div>
-			<a href="themes.html" id="themes" ><i class="fa fath" aria-hidden="true" id="theme-font"></i></a>
+		<div id="themes">
+			<span class="glyphicon glyphicon-th-large" aria-hidden="true" id="theme-font"></span>
 		</div>
 	</div>
 	<div id="content">
 		<div id="header">
-			<div id="h1">博&nbsp;客&nbsp;园</div>
-			<div id="h2">交流技术，共同进步</div>
+			<span id="h1">博&nbsp;客&nbsp;园</span>
+			<span id="h2">交流技术，共同进步</span>
 		</div>
-		<h4 class="title">
-	      <span>
-	        <a class="active" data-pjax="true" href="/sign_in">登录</a>
-	        <b>·</b>
-	        <a class="register" data-pjax="true" href="/sign_up">注册</a>
-	      </span>
-	    </h4>
-		<form class="form">
-			<div class="input">
-				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-				<input type="text" name="username" id="username" placeholder="手机号码/电子邮箱">
-			</div>
-			<div class="input">
-				<span class="input-group-addon"><i class="fa fa-passwd"></i></span>
-				<input type="password" name="passwd" id="passwd" placeholder="密码">
-			</div>
-			<a href="home.html" id="login">登录</a>
-			<div class="check">
-				<input type="checkbox" name="remember" checked="checked">
-				<span id="remember">记住我</span>
-			</div>
+		<div id="separator">
+			<hr id="l1">
+			<a href="" id="log"><b>登录</b></a>
+			<b id="l2">-</b>
+			<a href="" id="register">注册</a>
+			<hr id="l3">
+		</div>
+		<form>
+			<input type="text" name="username" id="username" placeholder="手机号码/电子邮箱">
+			<input type="password" name="passwd" id="passwd" placeholder="密码">
+			<a href="" id="login">登录</a>
+			<p id="remember"><input type="checkbox" name="remember" checked="checked">记住我</p>
 			<a href="" id="forget">忘记密码</a>
 		</form>
-		<h4 id="l4"></h4>
-		<div id="sns">您还可以通过以下方式直接登录</div>
+		<hr id="l4">
+		<span id="sns">您还可以通过以下方式直接登录</span>
 		<ul id="login-sns" type="none">
-			<li>
-				<a href="" id="qq">
-					<i class="fa fa-qq"></i>
+			<li id="qq">
+				<a href="">
+					<i id="i-qq"></i>
 				</a>
 			</li>
-			<li>
-				<a href="" id="wechat">
-					<i class="fa fa-wechat"></i>
+			<li id="wechat">
+				<a href="">
+					<i id="i-wechat"></i>
 				</a>
 			</li>
-			<li>
-				<a href="" id="weibo">
-					<i class="fa fa-weibo"></i>
+			<li id="weibo">
+				<a href="">
+					<i id="i-weibo"></i>
 				</a>
 			</li>
 		</ul>
