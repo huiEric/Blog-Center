@@ -184,9 +184,17 @@ a
  li
  {
  	display: inline-block;
+ 	line-height: 20px;
+ }
+ .left
+ {
+ 	float: left;
+ 	padding-left: 65px;
+ 	line-height: 55px;
  }
  .title
  {
+ 	margin-right: 10px;
  	display: block;
  	border:1px solid #e78170;
  	border-radius: 50%;
@@ -196,9 +204,6 @@ a
  	font-size: 18px;
  	text-align: center;
  	line-height: 32px;	
- 	position: relative;
- 	left: 70px;
- 	top: 5px;
  }
  .fa-title:before
  {
@@ -215,7 +220,242 @@ a
  	font-size: 18px;
  	text-align: center;
  	line-height: 32px;	
- 	position: relative;
- 	left: 80px;
- 	top: 5px;
  }
+ .save
+ {
+ 	display: block;
+ 	width: 32px;
+ 	height: 32px;
+ 	color: #555555;
+ 	font-size: 18px;
+ 	text-align: center;
+ 	line-height: 32px;	
+ }
+ .fa-save:before
+ {
+ 	content: "\f0c7";
+ }
+ .head
+ {
+ 	height: 38px;
+ 	display: block;
+ 	line-height: 55px;	
+ 	float: right;
+ 	position: relative;
+ 	top: 6px;
+ 	right: 25px;
+ }
+ .qq
+ {
+ 	width: 35px;
+ 	height: 35px;
+ 	border-radius: 50%;
+ 	border: 2px solid white;
+ }
+ .qq:hover
+ {
+ 	border-color: #e78170;
+ }
+ .caret
+ {
+ 	display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: top;
+    border-top: 4px solid black;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    content: "";
+    color: #555555;
+    position: relative;
+    top: 20px;
+ }
+ .arrow-top:before, .arrow-top:after
+ {
+ 	position: absolute;
+    top: -10px;
+    left: 67%;
+    content: '';
+    display: inline-block;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid #d9d9d9;
+ }
+ .arrow-top:after
+ {
+ 	top: -9px;
+    border-bottom: 9px solid white;	
+ }
+.dropdown-menu li a:link,.dropdown-menu li a:visited
+{
+	display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 20px;
+    color: #3f3f3f;
+    white-space: nowrap;
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 20px;
+    color: #3f3f3f;
+    white-space: nowrap;
+}
+.dropdown-menu li a:hover 
+{
+	color: white;
+    background-color: #4f4f4f;
+    background-image: -moz-linear-gradient(top, #555, #484848);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#555), to(#484848));
+    background-image: -webkit-linear-gradient(top, #555, #484848);
+    background-image: -o-linear-gradient(top, #555, #484848);
+    background-image: linear-gradient(to bottom, #555, #484848);
+    background-repeat: repeat-x;
+}
+.dropdown-menu
+{
+	position: absolute;
+    top: 60px;
+    right: 13px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    background-color: white;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,0.2);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    font-size: 14px;
+}
+.dropdown-menu li{
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+#rest
+{
+	width: 100%;
+	height: 580px;
+	display: inline-block;
+}
+#except-qq
+{
+	display: inline-block;
+	width: 93%;
+	height:100%;
+}
+.fa-pen:before
+{
+	content: "\f040";
+}
+.fa-home:before
+{
+	content: "\f007";
+}
+.fa-collection:before
+{
+	content: "\f02e";
+}
+.fa-set:before
+{
+	content: "\f085";
+}
+.fa-logout:before
+{
+	content: "\f08b";
+}
+.right
+{
+	line-height: 55px;
+	float: right;
+}
+.save
+{
+
+}
+.fa-publish:before
+{
+	content: "\f064";
+}
+.publish
+{
+	text-decoration: none;
+	color: #555555;
+	margin-left: 15px;
+}
+#input
+{
+	width: 43%; 	
+	height: 588px;
+	margin-left: 90px;
+	background-color: #2c2827;
+	position: absolute;
+	top: 55px;
+}
+#preview
+{
+	width: 48.95%;
+	height: 588px;
+	position: absolute;
+	background-color: #2c2827;
+	color: white;
+	left: 678px;
+}
+#input1
+{
+	width: 91.5%;
+	height: 27px; 	 	
+	padding: 5px 17px 5px 27px;
+    font-size: 20px;
+    color: #1d7fe2;
+    outline: none;
+    border:none;
+    background: #2c2827;
+    font-family: "YaHei Consolas Hybrid", Consolas, 微软雅黑, "Meiryo UI", "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, Monaco, courier, monospace;
+}
+#input1:focus
+{
+	background-color: #34302f; 
+	opacity: 0.6;
+}
+#countline
+{
+	width: 45px;
+	height: 588px;
+	background-color: #34302f; 	
+	box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+	position: absolute;
+	left: 45px;
+	top: 55px;
+}
+#scrollbar
+{
+	width: 8px;
+	height: 588px;
+	left: 670px;
+    top: 55px;
+    position: absolute;
+    background-color: rgb(102, 102, 102);
+}
+#l1
+{
+	width: 45px;
+	height: 37px;
+	background-color: transparent;
+	text-align: center;
+	line-height: 37px;
+	color: #8F938F;
+	font-family: "YaHei Consolas Hybrid", Consolas, 微软雅黑, "Meiryo UI", "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, Monaco, courier, monospace;
+}
