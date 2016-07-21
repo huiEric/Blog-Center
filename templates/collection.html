@@ -5,8 +5,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>博客园 - 个人主页</title>
-	<link rel="stylesheet" type="text/css" href="../static/css/home.css">
-	<script type="text/javascript" src="../static/js/home.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/collection.css">
+	<script type="text/javascript" src="../static/js/collection.js"></script>
 </head>
 <body>
 		<div id="nav-bar" onclick="hideSubMenu(document.getElementById('menu'))">
@@ -32,55 +32,6 @@
 				<a href="write.html" class="write"><i class="fa fa-write" aria-hidden="true"></i></a>
 			</div>
 		</div>
-		<div id="left" onclick="hideSubMenu($('menu'))">
-			<img src="../static/pics/qq.png" id="head">
-			<div id="username">b9d2331464db</div>
-			<div id="edit">
-				<a href="javascript:void(0)" id="introduction" onclick="edit()">编辑个人介绍</a>
-			</div>
-			<ul id="top" type="none">
-				<li>
-					<a href="" id="care">
-						<b>0</b>
-						<div id="care1">关注</div>
-					</a>
-				</li>
-				<li>
-					<a href="" id="fans">
-						<b>0</b>
-						<div id="fans1">粉丝</div>
-					</a>
-				</li>
-			</ul>
-			<ul id="bottom" type="none">
-				<li>
-					<a href="" id="passage">
-						<b>0</b>
-						<div id="passage1">文章</div>
-					</a>
-				</li>
-				<li>
-					<a href="" id="number">
-						<b>0</b>
-						<div id="number1">字数</div>
-					</a>
-				</li>
-				<li>
-					<a href="" id="love">
-						<b>0</b>
-						<div id="love1">收获喜欢</div>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div id="center" onclick="hideSubMenu($('menu'))">
-			<div id="navbar">
-				<a href="javascript:void(0)" id="new" onclick="underline(this.id)">最新博客</a>
-				<a href="javascript:void(0)" id="state" onclick="underline(this.id)">最新动态</a>
-				<a href="javascript:void(0)" id="hot" onclick="underline(this.id)">热门博客</a>
-			</div>
-		</div>
-		<div id="right" onclick="hideSubMenu($('menu'))"></div>
 		<a href="javascript:void(0)" class="head" data-toggle="dropdown" onclick="displaySubMenu(document.getElementById('menu'))">
 				<img src="../static/pics/qq.png" class="qq">	
 				<b class="caret"></b>

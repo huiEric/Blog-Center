@@ -27,7 +27,7 @@
 				<a href="" class="collection"><i class="fa fa-collection" aria-hidden="true"></i></a>
 			</div>
 			<div>
-				<a href="" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
+				<a href="home.html" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
 			</div>
 			<div>
 				<a href="" class="write"><i class="fa fa-write" aria-hidden="true"></i></a>
@@ -64,7 +64,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="home.html">
 						<i class="fa fa-home"></i>
 						我的个人主页
 					</a>
@@ -82,7 +82,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="index.html">
 						<i class="fa fa-logout"></i>
 						登出
 					</a>
@@ -94,13 +94,10 @@
 				<div id="l1">1</div>
 			</div>
 			<div id="input">	
-				<input type="text" name="input1" id="input1" maxlength="47" onkeydown="check(window.event,this.id)" oninput="new Editor(toStr(),$('preview'));">
+				<input type="text" name="input1" id="input1" onkeydown="check(window.event,this.id);" oninput="displayInput(this.id)">
 			</div>
 			<div id="scrollbar"></div>
 	    	<div id="preview"> </div>
 		</div>
-		<script>
-	      
-	    </script>
 </body>
-</html>
+</html> 	

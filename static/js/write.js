@@ -13,11 +13,25 @@ function Editor(input, preview) {
 	      }
 	      var $ = function (id) { return document.getElementById(id); };
 	      var n = 1;
-	      $('input1').setAttribute('index',1);
 	      window.onload = function()
 	      {
+	      	$('input1').setAttribute('index',1);
+	      	$('input1').setAttribute('length',47);
 	      	$('input1').focus();
 	      }
+function displayInput(id)
+{
+	str = $(id).value;
+	while(str.length>parseInt($(id).getAttribute('length')))
+	{
+		$(id).value = str.slice(0,parseInt($(id).getAttribute('length')));
+		str = str.slice(parseInt($(id).getAttribute('length')),str.length);
+		addLine();
+		id = 'input'+(parseInt($(id).getAttribute('index'))+1);
+	} 
+	$(id).value = str.slice(0,parseInt($(id).getAttribute('length')));
+	new Editor(toStr(),$('preview'));
+}
 	      function toStr()
 	      {
 	      	str = $('input1').value;
@@ -60,12 +74,12 @@ function Editor(input, preview) {
 		      			input.name="input"+n;
 		      			input.id="input"+n;
 		      			input.setAttribute('index',n);
-		      			input.setAttribute('maxlength',47);
+		      			input.setAttribute('length',47);
 		      			input.onkeydown=function onkeydown(event){
 		      				check(window.event,this.id);
 		      			}
 		      			input.oninput=function oninput(event){
-		      				new Editor(toStr(),$('preview'));
+		      				displayInput(this.id);
 		      			}
 		      			input.onfocus=function onfocus(event){
 		      				this.style.backgroundColor = "#34302f"; 
@@ -149,11 +163,5 @@ function Editor(input, preview) {
 	      		if (e.keyCode == 38) {
 	      			$('input' + (parseInt($(id).getAttribute('index'))-1)).focus();
 	      		}
-	      		if (($(id).value)&&(e.keyCode != 8)&&(e.keyCode != 13)) {
-	      			if ($(id).value.length == parseInt($(id).getAttribute('maxlength'))) {
-		      			addLine();
-		      			$('input'+(parseInt($(id).getAttribute('index'))+1)).focus();
-		      		}
-	      		}
 	      	}
-	      }
+	      }	
