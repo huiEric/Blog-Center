@@ -157,3 +157,7 @@ h2
 {
 	content: '\f009';
 }
+.fa-pen:before
+{
+	content: "\f040";
+}

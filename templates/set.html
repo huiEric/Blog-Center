@@ -4,9 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>博客园 - 个人主页</title>
-	<link rel="stylesheet" type="text/css" href="../static/css/collection.css">
-	<script type="text/javascript" src="../static/js/collection.js"></script>
+	<title>博客园 - 设置</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/set.css">
+	<script type="text/javascript" src="../static/js/set.js"></script>
 </head>
 <body>
 		<div id="nav-bar" onclick="hideSubMenu(document.getElementById('menu'))">
@@ -32,26 +32,46 @@
 				<a href="write.html" class="write"><i class="fa fa-write" aria-hidden="true"></i></a>
 			</div>
 		</div>
-		<div id="left" onclick="hideSubMenu($('menu'))">
-			<div id="title">
-				<h1>博客园</h1>
-				<h2>博通天下</h2>
-			</div>
-			<div id="note">
-				<i class="fa fa-light"></i>
-				关注了0位博主、0个博客和0个专题。
-			</div>
-			<a href="write.html" id="write">
-				<i class="fa fa-pen"></i>
-				写博客
-			</a>
-		</div>
 		<div id="center" onclick="hideSubMenu($('menu'))">
+			<h1>
+				<i class="fa fa-set"></i>
+				设置
+			</h1>
 			<div id="navbar">
-				<a href="javascript:void(0)" id="friend" onclick="underline(this.id)">博友圈</a>
-				<a href="javascript:void(0)" id="collect" onclick="underline(this.id)">我的收藏</a>
-				<input type="text" name="search" id="search" placeholder="搜索">
-				<a href="" id="logo"><i class="fa fa-search"></i></a>
+				<a href="javascript:void(0)" id="basic" onclick="change(this.id)">基础设置</a>
+				<a href="javascript:void(0)" id="info" onclick="change(this.id)">个人资料</a>
+				<a href="javascript:void(0)" id="passwd" onclick="change(this.id)">修改密码</a>
+			</div>
+			<div id="basicContent">
+				<p>昵称</p>
+				<input type="text" name="nickname" id="nickname" value="b9d2331464db">
+				<p>电子邮件</p>
+				<input type="text" name="email" id="email" disabled="disabled" value="2655711088@qq.com">
+				<p>绑定手机号码</p>
+				<input type="text" name="tel" id="tel" disabled="disabled" value="15812345678">
+				<a href="" id="save">保存</a>
+			</div>
+			<div id="infoContent">
+				<p>头像</p>
+				<div id="head">
+					<img src="../static/pics/qq.jpg" id="img">
+					<a href="javascript:void(0)" id="upload">
+						更换头像
+						<input type="file" name="upload">
+					</a>
+				</div>
+				<p>简介</p>
+				<textarea id="textarea"></textarea>
+				<a href="" id="save">保存</a>
+			</div>
+			<div id="passwdContent">
+				<p>原始密码</p>
+				<input type="password" name="origin">
+				<p>新密码</p>
+				<input type="password" name="new">
+				<p>确认新密码</p>
+				<input type="password" name="confirm">
+				<a href="" id="save">提交</a>
 			</div>
 		</div>
 		<div id="right" onclick="hideSubMenu($('menu'))"></div>

@@ -11,33 +11,36 @@ function Editor(input, preview) {
 	        input.editor = this;
 	        this.update();
 	      }
-	      var $ = function (id) { return document.getElementById(id); };
+	      var get = function (id) { return document.getElementById(id); };
 	      var n = 1;
 	      window.onload = function()
 	      {
-	      	$('input1').setAttribute('index',1);
-	      	$('input1').setAttribute('length',47);
-	      	$('input1').focus();
+	      	get('input1').setAttribute('index',1);
+	      	get('input1').setAttribute('length',47);
+	      	get('input1').focus();
 	      }
 function displayInput(id)
 {
-	str = $(id).value;
-	while(str.length>parseInt($(id).getAttribute('length')))
-	{
-		$(id).value = str.slice(0,parseInt($(id).getAttribute('length')));
-		str = str.slice(parseInt($(id).getAttribute('length')),str.length);
-		addLine();
-		id = 'input'+(parseInt($(id).getAttribute('index'))+1);
-	} 
-	$(id).value = str.slice(0,parseInt($(id).getAttribute('length')));
-	new Editor(toStr(),$('preview'));
+	str = get(id).value;
+	console.log(textWidth(str));
+	if (textWidth(str)>490) {
+		while(textWidth(str)>490)
+		{
+			get(id).value = str.slice(0,parseInt(get(id).getAttribute('length')));
+			str = str.slice(parseInt(get(id).getAttribute('length')),str.length);
+			addLine();
+			id = 'input'+(parseInt(get(id).getAttribute('index'))+1);
+		} 
+		get(id).value = str.slice(0,parseInt(get(id).getAttribute('length')));
+	}
+	new Editor(toStr(),get('preview'));
 }
 	      function toStr()
 	      {
-	      	str = $('input1').value;
+	      	str = get('input1').value;
 	      	for(var i=2;i<=n;i++)
 	      	{
-	      		str += '\n'+$('input'+i).value;
+	      		str += '\n'+get('input'+i).value;
 	      	}
 	      	return str;
 	      }
@@ -63,10 +66,10 @@ function displayInput(id)
 	      {
 	      				n++;
 	      				if (n>15) {
-	      					$('input').style.height = n*37+'px';
-	      					$('countline').style.height = n*37+'px';
-	      					$('scrollbar').style.height = n*37+'px';
-	      					$('preview').style.height = n*37+'px';
+	      					get('input').style.height = n*37+'px';
+	      					get('countline').style.height = n*37+'px';
+	      					get('scrollbar').style.height = n*37+'px';
+	      					get('preview').style.height = n*37+'px';
 	      				}
 		      			input = document.createElement('input');
 		      			document.getElementById('input').appendChild(input);
@@ -99,7 +102,7 @@ function displayInput(id)
 		      			style.background= "#2c2827";
 		      			style.fontFamily='"YaHei Consolas Hybrid", Consolas, 微软雅黑, "Meiryo UI", "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, Monaco, courier, monospace';
 		      			line = document.createElement('div');
-		      			$('countline').appendChild(line);
+		      			get('countline').appendChild(line);
 		      			line.id = 'l' +  n;
 		      			line.innerHTML = n;
 		      			style=line.style;
@@ -124,44 +127,51 @@ function displayInput(id)
 	      			}
 	      			else
 	      			{
-	      				$('input' + (parseInt($(id).getAttribute('index')) + 1)).focus();
+	      				get('input' + (parseInt(get(id).getAttribute('index')) + 1)).focus();
 	      			}
 	      		}
 	      		if (e.keyCode == 8) {
-	      			if((parseInt($(id).getAttribute('index'))>1)&&($(id).value == ''))
+	      			if((parseInt(get(id).getAttribute('index'))>1)&&(get(id).value == ''))
 	      			{
-	      				$('input' + (parseInt($(id).getAttribute('index'))-1)).focus();
-	      				setCursorEnd($('input' + (parseInt($(id).getAttribute('index'))-1)));
-	      				for(var i=n;i>parseInt($(id).getAttribute('index'));i--)
+	      				get('input' + (parseInt(get(id).getAttribute('index'))-1)).focus();
+	      				setCursorEnd(get('input' + (parseInt(get(id).getAttribute('index'))-1)));
+	      				for(var i=n;i>parseInt(get(id).getAttribute('index'));i--)
 	      				{
-	      					target = $('input'+i);
+	      					target = get('input'+i);
 	      					target.name="input"+(i-1);
 		      				target.id="input"+(i-1);
 		      				target.setAttribute('index',i-1);
-		      				target = $('l'+i);
+		      				target = get('l'+i);
 		      				target.id = 'l' + (i-1);
 		      				target.innerHTML = i-1;
 	      				}
-	      				$('l'+$(id).getAttribute('index')).parentNode.removeChild($('l'+$(id).getAttribute('index')));
-	      				$('input'+$(id).getAttribute('index')).parentNode.removeChild($('input'+$(id).getAttribute('index')));
+	      				get('l'+get(id).getAttribute('index')).parentNode.removeChild(get('l'+get(id).getAttribute('index')));
+	      				get('input'+get(id).getAttribute('index')).parentNode.removeChild(get('input'+get(id).getAttribute('index')));
 	      				n--;
-	      				id = $('input'+n).id; 
+	      				id = get('input'+n).id; 
 	      				if(n>15)
 	      				{
-	      					$('input').style.height = n*37+'px';
-		      				$('countline').style.height = n*37+'px';
-		      				$('scrollbar').style.height = n*37+'px';
-		      				$('preview').style.height = n*37+'px';
+	      					get('input').style.height = n*37+'px';
+		      				get('countline').style.height = n*37+'px';
+		      				get('scrollbar').style.height = n*37+'px';
+		      				get('preview').style.height = n*37+'px';
 	      				}
 	      			}
 	      		}
 	      		if (e.keyCode == 40) {
-	      			if ($('input' + (parseInt($(id).getAttribute('index')) + 1))) {
-	      				$('input' + (parseInt($(id).getAttribute('index')) + 1)).focus();
+	      			if (get('input' + (parseInt(get(id).getAttribute('index')) + 1))) {
+	      				get('input' + (parseInt(get(id).getAttribute('index')) + 1)).focus();
 	      			}
 	      		}
 	      		if (e.keyCode == 38) {
-	      			$('input' + (parseInt($(id).getAttribute('index'))-1)).focus();
+	      			get('input' + (parseInt(get(id).getAttribute('index'))-1)).focus();
 	      		}
 	      	}
 	      }	
+var textWidth = function(text){ 
+	        var sensor = $('<pre>'+ text +'</pre>').css({display: 'none',fontSize: '20px'}); 
+	        $('body').append(sensor); 
+	        var width = sensor.width();
+	        sensor.remove(); 
+	        return width;
+	    };

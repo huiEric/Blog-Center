@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/write.css">
 	<script type="text/javascript" src="../static/js/write.js"></script>
 	<script src="../static/js/markdown.js"></script>
+	<script type="text/javascript" src="../static/js/jquery.js"></script>
 </head>
 <body>
 		<div id="nav-bar" onclick="hideSubMenu(document.getElementById('menu'))">
@@ -21,16 +22,16 @@
 				<a href="index.html" class="logout"><i class="fa fa-logout" aria-hidden="true"></i></a>
 			</div>
 			<div>
-				<a href="" class="set"><i class="fa fa-set" aria-hidden="true"></i></a>
+				<a href="set.html" class="set"><i class="fa fa-set" aria-hidden="true"></i></a>
 			</div> 
 			<div>
-				<a href="" class="collection"><i class="fa fa-collection" aria-hidden="true"></i></a>
+				<a href="collection.html" class="collection"><i class="fa fa-collection" aria-hidden="true"></i></a>
 			</div>
 			<div>
 				<a href="home.html" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
 			</div>
 			<div>
-				<a href="" class="write"><i class="fa fa-write" aria-hidden="true"></i></a>
+				<a href="write.html" class="write"><i class="fa fa-write" aria-hidden="true"></i></a>
 			</div>
 		</div>
 		<div class="bar">
@@ -58,7 +59,7 @@
 			</a>
 			<ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel" id="menu">
 				<li>
-					<a href="">
+					<a href="write.html">
 						<i class="fa fa-pen"></i>
 						写博客
 					</a>
@@ -70,13 +71,13 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="collection.html">
 						<i class="fa fa-collection"></i>
 						我的收藏
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="set.html">
 						<i class="fa fa-set"></i>
 						设置
 					</a>
@@ -94,7 +95,7 @@
 				<div id="l1">1</div>
 			</div>
 			<div id="input">	
-				<input type="text" name="input1" id="input1" onkeydown="check(window.event,this.id);" oninput="displayInput(this.id)">
+				<input type="text" name="input1" id="input1" onkeydown="check(window.event,this.id);" oninput="displayInput(this.id);">
 			</div>
 			<div id="scrollbar"></div>
 	    	<div id="preview"> </div>
