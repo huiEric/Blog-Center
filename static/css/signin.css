@@ -162,7 +162,7 @@ h4 span
 	position: relative;
 	margin: 0 auto;
     display: table;
-    border-collapse: separate;
+    width: 500px;
 }
 .input-group-addon
 {
@@ -377,3 +377,13 @@ li
  {
  	content: '\f009';
  }
+ #error1
+{
+	color: #f66;
+	margin-left: 10px;
+	font-size: 14px;
+	display: none;
+}
+.fa-exclamation-circle:before {
+  content: "\f06a";
+}

@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>首页 - 博客园</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/signup.css">
+	<script type="text/javascript" src="../static/js/signup.js"></script>
+	<script type="text/javascript" src="../static/js/jquery.js"></script>
 </head>
 <body>
 	<div id="nav-bar">
 		<div>
-			<a href="index.html" id="wonders"><b>博</b></a>
+			<a href="/" id="wonders"><b>博</b></a>
 		</div>
 		<div>
-			<a href="themes.html" id="themes" ><i class="fa fath" aria-hidden="true" id="theme-font"></i></a>
+			<a href="/themes" id="themes" ><i class="fa fath" aria-hidden="true" id="theme-font"></i></a>
 		</div>
 	</div>
 	<div id="content">
@@ -23,25 +25,49 @@
 		</div>
 		<h4 class="title">
 	      <span>
-	        <a class="active" data-pjax="true" href="/sign_in">登录</a>
+	        <a class="active" data-pjax="true" href="/signin">登录</a>
 	        <b>·</b>
-	        <a class="register" data-pjax="true" href="/sign_up">注册</a>
+	        <a class="register" data-pjax="true" href="/signup">注册</a>
 	      </span>
 	    </h4>
-		<form class="form">
+		<form class="form" method="post" enctype="multipart/form-data" id="form" action="">
 			<div class="input">
 				<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-				<input type="text" name="username" id="email" placeholder="你的电子邮箱">
+				<input type="text" name="email" id="email" placeholder="你的电子邮箱" onblur="checkEmail(this.id)">
+				<span id="error1">
+					<i class="fa fa-exclamation-circle"></i>
+					请输入有效的电子邮箱
+				</span>
+				<span id="correct1">
+					<i class="fa fa-check-circle"></i>
+				</span>
 			</div>
 			<div class="input">
 				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-				<input type="text" name="username" id="username" placeholder="你的昵称">
+				<input type="text" name="nickname" id="username" placeholder="你的昵称" onblur="checkNickname(this.id)">
+				<span id="error2">
+					<i class="fa fa-exclamation-circle"></i>
+					昵称不可以为空
+				</span>
+				<span id="correct2">
+					<i class="fa fa-check-circle"></i>
+				</span>
 			</div>
 			<div class="input">
 				<span class="input-group-addon"><i class="fa fa-passwd"></i></span>
-				<input type="password" name="passwd" id="passwd" placeholder="密码">
+				<input type="password" name="passwd" id="passwd" placeholder="密码" oninput="pwStrength(this.value)">
+				<span id="check">
+					<table width="210" cellspacing="0" cellpadding="1" height="22" style='display:inline'>  
+						<tr align="center">  
+							<td width="33%" id="strength_L">弱</td>  
+							<td width="33%" id="strength_M">中</td>  
+							<td width="33%" id="strength_H">强</td>  
+						</tr>  
+					</table>  
+					<span id="char"></span>
+				</span>
 			</div>
-			<a href="" id="register">注册</a>
+			<a href="javascript:void(0)" id="register" onclick="summit()">注册</a>
 		</form>
 		<div class="notice">点击 “注册” 或下方社交登录按钮，即表示您同意并愿意遵守简书<b> 用户协议 </b>和<b> 隐私政策 </b>。</div>
 		<div class="other">
@@ -65,7 +91,7 @@
 				</li>
 			</ul>
 		</div>
-	<a href="signin.html" id="signin">Sign in</a>
-	<a href="signup.html" id="signup">Sign up</a>
+	<a href="/signin" id="signin">Sign in</a>
+	<a href="/signup" id="signup">Sign up</a>
 </body>
 </html>

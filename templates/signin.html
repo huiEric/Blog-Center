@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>首页 - 博客园</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/signin.css">
+	<script type="text/javascript" src="../static/js/signin.js"></script>
 </head>
 <body>
 	<div id="nav-bar">
 		<div>
-			<a href="index.html" id="wonders"><b>博</b></a>
+			<a href="/" id="wonders"><b>博</b></a>
 		</div>
 		<div>
-			<a href="themes.html" id="themes" ><i class="fa fath" aria-hidden="true" id="theme-font"></i></a>
+			<a href="/themes" id="themes" ><i class="fa fath" aria-hidden="true" id="theme-font"></i></a>
 		</div>
 	</div>
 	<div id="content">
@@ -23,21 +24,25 @@
 		</div>
 		<h4 class="title">
 	      <span>
-	        <a class="active" data-pjax="true" href="/sign_in">登录</a>
+	        <a class="active" data-pjax="true" href="/signin">登录</a>
 	        <b>·</b>
-	        <a class="register" data-pjax="true" href="/sign_up">注册</a>
+	        <a class="register" data-pjax="true" href="/signup">注册</a>
 	      </span>
 	    </h4>
 		<form class="form">
 			<div class="input">
 				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-				<input type="text" name="username" id="username" placeholder="手机号码/电子邮箱">
+				<input type="text" name="username" id="username" placeholder="电子邮箱" onblur="checkEmail(this.id)">
+				<span id="error1">
+					<i class="fa fa-exclamation-circle"></i>
+					电子邮箱格式错误
+				</span>
 			</div>
 			<div class="input">
 				<span class="input-group-addon"><i class="fa fa-passwd"></i></span>
 				<input type="password" name="passwd" id="passwd" placeholder="密码">
 			</div>
-			<a href="home.html" id="login">登录</a>
+			<a href="javascript:void(0)" id="login" onclick="summit()">登录</a>
 			<div class="check">
 				<input type="checkbox" name="remember" checked="checked">
 				<span id="remember">记住我</span>
@@ -64,7 +69,7 @@
 			</li>
 		</ul>
 	</div>
-	<a href="signin.html" id="signin">Sign in</a>
-	<a href="signup.html" id="signup">Sign up</a>
+	<a href="/signin" id="signin">Sign in</a>
+	<a href="/signup" id="signup">Sign up</a>
 </body>
 </html>
