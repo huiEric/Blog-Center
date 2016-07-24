@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>首页 - 博客园</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+	<script type="text/javascript" src="../static/js/index.js"></script>
 </head>
 <body>
 	<div id="nav-bar">
@@ -20,7 +21,7 @@
 		<h1><b>博客园</b></h1>
 		<h2><b>交流技术，共同进步</b></h2>
 		<span id="note"><b>一个分享技术的博客园地</b></span>
-		<a href="/write" id="write">
+		<a href="javascript:void(0)" id="write" onclick="isLogin()">
 			<i class="fa fa-pen"></i>
 			写博客
 		</a>

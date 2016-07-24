@@ -8,24 +8,85 @@ function isEmailValid(email){
     }  
     return true; 
 }
+function isEmailExist(email){
+	var xmlhttp,exist;
+	if(window.XMLHttpRequest){
+		xmlhttp=new XMLHttpRequest();
+	}
+	else{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result=JSON.parse(xmlhttp.responseText);
+			if(result.exist==0){
+				exist=false;
+			}
+			else{
+				exist=true;
+			}
+		}
+	}
+	url='/signup'+'?email='+email;
+	xmlhttp.open("GET",url,false);
+	xmlhttp.send();
+	return exist;
+}
+function isNicknameExist(nickname){
+	var xmlhttp;
+	if(window.XMLHttpRequest){
+		xmlhttp=new XMLHttpRequest();
+	}
+	else{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result=JSON.parse(xmlhttp.responseText);
+			if(result.exist==0){
+				return false; 
+			}
+			else{
+				return true;
+			}
+		}
+	}
+	url='/signup'+'?nickname='+nickname;
+	xmlhttp.open("GET",url,false);
+	xmlhttp.send();
+}
+function isNicknameEmpty(nickname){
+	if(nickname == ''||(/^[ ]+$/.test(nickname))){
+		return true;
+	}
+	return false;
+}
 function checkEmail(id){
 	email = get(id).value;
 	get('correct1').style.display = 'none';
 	get('error1').style.display = 'none';
-	if (isEmailValid(email)) {
-		get('correct1').style.display = 'inline';
-		get('username').focus();
+	get('error4').style.display = 'none';
+	if(isEmailExist(email)){
+		get('error4').style.display = 'inline';
+	}
+	else if (!isEmailValid(email)) {
+		get('error1').style.display = 'inline';
 	}
 	else{
-		get('error1').style.display = 'inline';
+		get('correct1').style.display = 'inline';
+		get('nickname').focus();
 	}
 }
 function checkNickname(id){
 	nickname = get(id).value;
 	get('error2').style.display = 'none';
 	get('correct2').style.display = 'none';
-	if(nickname == ''||(/^[ ]+$/.test(nickname))){
+	get('error3').style.display = 'none';
+	if(isNicknameEmpty(nickname)){
 		get('error2').style.display = 'inline';
+	}
+	else if(!isNicknameExist(nickname)){
+		get('error3').style.display = 'inline';
 	}
 	else{
 		get('correct2').style.display = 'inline';
@@ -105,5 +166,26 @@ document.getElementById("strength_H").style.background=Hcolor;
 return;  
 }  
 function summit(){
-	get('form').submit();
+	email = get('email').value;
+	passwd = get('passwd').value;
+	nickname = get('nickname').value;
+	if (!isEmailValid(email) ){
+		alert('电子邮箱格式错误!');
+	}
+	else if(isEmailExist(email)){
+		alert('用户名已存在!');
+	}
+	else if(isNicknameEmpty(nickname)){
+		alert('昵称不能为空!');
+	}
+	else if(!isNicknameExist(nickname)){
+		alert('昵称已存在!');
+	}
+	else if(passwd == ''||(/^[ ]+$/.test(passwd))){
+		alert('密码不能为空!');
+	}
+	else{
+		alert('注册成功!');
+		get('form').submit();
+	}
 }

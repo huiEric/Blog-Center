@@ -22,7 +22,6 @@ function Editor(input, preview) {
 function displayInput(id)
 {
 	str = get(id).value;
-	console.log(textWidth(str));
 	if (textWidth(str)>490) {
 		while(textWidth(str)>490)
 		{
@@ -40,7 +39,7 @@ function displayInput(id)
 	      	str = get('input1').value;
 	      	for(var i=2;i<=n;i++)
 	      	{
-	      		str += '\n'+get('input'+i).value;
+	      		str += '\r\n'+get('input'+i).value;
 	      	}
 	      	return str;
 	      }
@@ -175,3 +174,113 @@ var textWidth = function(text){
 	        sensor.remove(); 
 	        return width;
 	    };
+var title,category;
+function getTitle(){
+	if (get('title')!=null) {
+		get('except-qq').removeChild(get('title'));
+	}
+	title = prompt("请输入博客的标题:");
+	if(!title||(/^[ ]+$/.test(title))){
+		title=undefined;
+		return;
+	}
+	var xmlhttp;
+	if(window.XMLHttpRequest){
+		xmlhttp = new XMLHttpRequest();
+	}
+	else{
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result = JSON.parse(xmlhttp.responseText);
+			if(result.exist==0){
+				var titleObj=document.createElement('div');
+				get('except-qq').appendChild(titleObj);
+				titleObj.id = 'title';
+				titleObj.innerHTML = title;
+			}
+			else{
+				alert('你已经写过这篇博客啦~');
+				title = undefined;
+			}
+		}
+	}
+	url = '/write'+'?title='+title;
+	xmlhttp.open("GET",url,false);
+	xmlhttp.send();
+}
+function getCategory(){
+	if (get('category')!=null) {
+		get('except-qq').removeChild(get('category'));
+	}
+	category = prompt("请输入博客的分类:");
+	if(!category||(/^[ ]+$/.test(category))){
+		category=undefined;
+		return;
+	}
+	var categoryObj=document.createElement('div');
+	get('except-qq').appendChild(categoryObj);
+	categoryObj.id = 'category';
+	categoryObj.innerHTML = category;
+}
+function save(){
+	text = toStr();
+	var saved=0;
+	if(!title||(/^[ ]+$/.test(title))){
+		alert('先想个好题目吧~');
+		return;
+	}
+	var xmlhttp;
+	if(window.XMLHttpRequest){
+		xmlhttp = new XMLHttpRequest();
+	}
+	else{
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result = JSON.parse(xmlhttp.responseText);
+			if(result.exist==1){
+				alert('你已经保存过啦~');
+				saved=1;
+			}
+		}
+	}
+	url = '/write'+'?title='+title;
+	xmlhttp.open("GET",url,false);
+	xmlhttp.send();
+	if(saved==1){
+		return;
+	}
+	if(!category||(/^[ ]+$/.test(category))){
+		alert('要分在哪一类呢...');
+		return;
+	}
+	if (!text||(/^[ ]+$/.test(text))) {
+		alert('少年,你的博客还没写呢');
+		return;
+	}
+	var xmlhttp;
+	if(window.XMLHttpRequest){
+		xmlhttp = new XMLHttpRequest();
+	}
+	else{
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result = JSON.parse(xmlhttp.responseText);
+			if(result.success==1){
+				alert('保存成功!');
+			}
+			else{
+				alert('失败了,待会儿再试试吧');
+			}
+		}
+	}
+	url = '/write';
+	xmlhttp.open("POST",url,true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send('title='+title+'&category='+category+'&text='+text);
+}

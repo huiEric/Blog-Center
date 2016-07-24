@@ -7,6 +7,7 @@
 	<title>首页 - 博客园</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/signin.css">
 	<script type="text/javascript" src="../static/js/signin.js"></script>
+	<script type="text/javascript" src="../static/js/jquery.js"></script>
 </head>
 <body>
 	<div id="nav-bar">
@@ -29,10 +30,10 @@
 	        <a class="register" data-pjax="true" href="/signup">注册</a>
 	      </span>
 	    </h4>
-		<form class="form">
+		<form class="form" method="post" action="" enctype="multipart/form-data" id="form">
 			<div class="input">
 				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-				<input type="text" name="username" id="username" placeholder="电子邮箱" onblur="checkEmail(this.id)">
+				<input type="text" name="email" id="email" placeholder="电子邮箱" onblur="checkEmail(this.id)">
 				<span id="error1">
 					<i class="fa fa-exclamation-circle"></i>
 					电子邮箱格式错误

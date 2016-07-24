@@ -38,16 +38,24 @@
 					<i class="fa fa-exclamation-circle"></i>
 					请输入有效的电子邮箱
 				</span>
+				<span id="error4">
+					<i class="fa fa-exclamation-circle"></i>
+					用户名已存在
+				</span>
 				<span id="correct1">
 					<i class="fa fa-check-circle"></i>
 				</span>
 			</div>
 			<div class="input">
 				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-				<input type="text" name="nickname" id="username" placeholder="你的昵称" onblur="checkNickname(this.id)">
+				<input type="text" name="nickname" id="nickname" placeholder="你的昵称" onblur="checkNickname(this.id)">
 				<span id="error2">
 					<i class="fa fa-exclamation-circle"></i>
 					昵称不可以为空
+				</span>
+				<span id="error3">
+					<i class="fa fa-exclamation-circle"></i>
+					昵称已存在
 				</span>
 				<span id="correct2">
 					<i class="fa fa-check-circle"></i>

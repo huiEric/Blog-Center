@@ -216,7 +216,7 @@ h4 span
 	font-size: 5px;
 	font-weight: 700;
 }
-#username
+#nickname
 {
 	display: inline-block;
 	margin: 15px auto 0;
@@ -427,7 +427,7 @@ li
 	display: none;
 	margin-left: 10px;
 }
-#error1,#error2
+#error1,#error2,#error3,#error4
 {
 	color: #f66;
 	margin-left: 10px;

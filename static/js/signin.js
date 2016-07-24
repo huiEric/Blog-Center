@@ -12,12 +12,39 @@ function checkEmail(id){
 	email = get(id).value;
 	get('error1').style.display = 'none';
 	if (isEmailValid(email)) {
-		get('username').focus();
+		get('passwd').focus();
 	}
 	else{
 		get('error1').style.display = 'inline';
 	}
-}
-function summit(){
+} 	
+/*function summit(){
 	get('form').summit();
+}
+/***
+	Ajax
+		***/
+function summit(){
+	var xmlhttp;
+	if(window.XMLHttpRequest){
+		xmlhttp=new XMLHttpRequest();
+	}
+	else{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result=JSON.parse(xmlhttp.responseText);
+			if(result.success==0){
+				error=result.error;
+				alert(error);
+			}
+			else{
+				window.location.href='/home';
+			}
+		}
+	}
+	url='/signin'+'?email='+get('email').value+'&passwd='+get('passwd').value;
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send();
 }
