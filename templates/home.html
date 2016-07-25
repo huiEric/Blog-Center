@@ -7,8 +7,9 @@
 	<title>博客园 - 个人主页</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/home.css">
 	<script type="text/javascript" src="../static/js/home.js"></script>
+	<script type="text/javascript" src="../static/js/markdown.js"></script>
 </head>
-<body>
+{% block body %}
 		<div id="nav-bar" onclick="hideSubMenu(document.getElementById('menu'))">
 			<div>
 				<a href="/" id="wonders"><b>博</b></a>
@@ -75,9 +76,36 @@
 		</div>
 		<div id="center" onclick="hideSubMenu($('menu'))">
 			<div id="navbar">
-				<a href="javascript:void(0)" id="new" onclick="underline(this.id)">最新博客</a>
-				<a href="javascript:void(0)" id="state" onclick="underline(this.id)">最新动态</a>
-				<a href="javascript:void(0)" id="hot" onclick="underline(this.id)">热门博客</a>
+				<a href="javascript:void(0)" onclick="underline(this.id)" id="new">最新博客</a>
+				<a href="javascript:void(0)" onclick="underline(this.id)" id="state">最新动态</a>
+				<a href="javascript:void(0)" onclick="underline(this.id)" id="hot">热门博客</a>
+			</div>
+			<div id="newest">
+				<div id="time">{{newPassTime}}</div>
+				<a href="javascript:void(0)" onclick="toPass()" id="title">{{newPassTitle}}</a>
+				<div id="status">
+					<a href="javascript:void(0)" onclick="toPass()">阅读{{readt}}</a>
+					<a href="javascript:void(0)" onclick="toPass()">评论{{commentt}}</a>
+					<span>喜欢{{liket}}</span>
+				</div>
+			</div>
+			<div id="news">
+				{% for p in ps %}
+				<div id="p-container">
+					<div id="p">
+						<div class="ti">{{p['title']}}</div>
+						<div class="te">{{p['text']}}</div>
+					</div>
+					<div id="note">
+						<span id="com">评论({{p['comt']}})</span>
+						<span>{{p['time']}}</span>
+					</div>
+				</div>
+				{% endfor %}
+				<div id="attend">
+					<div id="attendInfo"><span>{{nickname}}</span>加入博客园</div>
+					<div id="attendTime">2016.07.04 14:45</div>
+				</div>
 			</div>
 		</div>
 		<div id="right" onclick="hideSubMenu($('menu'))"></div>
@@ -117,5 +145,8 @@
 					</a>
 				</li>
 			</ul>
-</body>
+			<div id="pass">
+				
+			</div>
+{% endblock %}
 </html> 

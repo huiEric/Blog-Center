@@ -310,7 +310,7 @@ a
 {
 	width: 30%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	left: 45px;
 	border-right:1px solid #d9d9d9;
 	border-bottom-color: white;
@@ -501,4 +501,105 @@ li
 #state
 {
 	border-bottom: 2px solid #555555;
+}
+#pass
+{
+	display: none;
+}
+#newest
+{
+	display: none;
+	margin-left: 80px;
+	margin-top: 30px;
+}
+#newest div,#newest a
+{
+	margin-bottom: 20px;
+}
+#title
+{
+	display: block;
+	color: #555555;
+	font-size: 20px;
+	font-weight: 700;
+}
+#time
+{
+	font-size: 14px;
+	color: #555555;
+}
+#status
+{
+	font-size: 13px;
+	color: rgba(0,0,0,0.35);
+}
+#status a
+{
+	margin-right: 10px;
+	color: rgba(0,0,0,0.35);
+}
+#news
+{
+	padding-top: 50px;
+	padding-bottom: 30px;
+	width: 500px;
+	height: auto;
+	margin-left: 150px;
+	margin-top: 0;
+	border-left: 1px solid #ddd;
+}
+#attend
+{
+	margin-left: 20px;
+}
+#attendInfo
+{
+	margin-bottom: 10px;
+	font-size: 14px;
+	color: #555555;
+}
+#attendInfo span
+{
+	color: #4094c7;
+}
+#attendTime
+{
+	font-size: 13px;
+	color: rgba(0,0,0,0.35);
+}
+#p-container
+{
+	margin-left: 20px;
+	margin-bottom: 30px;
+}
+#p
+{
+	background-color: whitesmoke;
+	padding-top: 15px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+.ti
+{
+	margin-left: 10px;
+	color: #4094c7;
+	font-size: 18px;
+	font-weight: 700;
+}
+.te
+{
+	margin-left: 10px;
+	font-size: 13px;
+	color: #555555;
+}
+#note
+{
+	font-size: 13px;
+	color: rgba(0,0,0,0.35);
+}
+#com
+{
+	color: #4094c7;
+	margin-right: 20px;
 }
