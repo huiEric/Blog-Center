@@ -135,7 +135,7 @@ a
  {
  	color: white;
  }
- .home
+ .warehouse
  {
  	width: 45px;
 	height: 45px;
@@ -145,6 +145,27 @@ a
 	line-height: 45px;
 	position: fixed;
 	bottom: 135px;
+	text-decoration: none;
+	display: block;
+ }
+ .warehouse:hover
+ {
+ 	color: white;
+ }
+ .fa-warehouse:before
+ {
+ 	content: "\f09b";
+ }
+ .home
+ {
+ 	width: 45px;
+	height: 45px;
+	color: #999999;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	position: fixed;
+	bottom: 180px;
 	text-decoration: none;
 	display: block;
  }
@@ -334,6 +355,7 @@ a
 	height: 38px;
 	margin: 0 auto 50px;
 	border-bottom: 1px solid #ddd;
+	line-height: 44px;
 }
 #navbar a
 {
@@ -344,8 +366,6 @@ a
     padding-bottom: 8px;
     line-height: 20px;
     font-size: 14px;
-    position: relative;
-    top: 6px;
     margin-right: 2px;
     border-radius: 3px;
 }

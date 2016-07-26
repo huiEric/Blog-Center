@@ -13,12 +13,6 @@ function Editor(input, preview) {
 	      }
 	      var get = function (id) { return document.getElementById(id); };
 	      var n = 1;
-	      window.onload = function()
-	      {
-	      	get('input1').setAttribute('index',1);
-	      	get('input1').setAttribute('length',47);
-	      	get('input1').focus();
-	      }
 function displayInput(id)
 {
 	str = get(id).value;
@@ -176,10 +170,13 @@ var textWidth = function(text){
 	    };
 var title,category;
 function getTitle(){
-	if (get('title')!=null) {
-		get('except-qq').removeChild(get('title'));
+	if (get('title').style.display=='block') {
+		get('title').style.display=='none';
+		title = prompt("请输入博客的标题:",get('title').innerHTML);
 	}
-	title = prompt("请输入博客的标题:");
+	else{
+		title = prompt("请输入博客的标题:");
+	}
 	if(!title||(/^[ ]+$/.test(title))){
 		title=undefined;
 		return;
@@ -195,9 +192,8 @@ function getTitle(){
 		if(xmlhttp.readyState==4&&xmlhttp.status==200){
 			result = JSON.parse(xmlhttp.responseText);
 			if(result.exist==0){
-				var titleObj=document.createElement('div');
-				get('except-qq').appendChild(titleObj);
-				titleObj.id = 'title';
+				var titleObj = get('title');
+				titleObj.style.display = 'block';
 				titleObj.innerHTML = title;
 			}
 			else{
@@ -211,17 +207,19 @@ function getTitle(){
 	xmlhttp.send();
 }
 function getCategory(){
-	if (get('category')!=null) {
-		get('except-qq').removeChild(get('category'));
+	if (get('category').style.display=='block') {
+		get('category').style.display=='none';
+		category = prompt("请输入博客的分类:",get('category').innerHTML);
 	}
-	category = prompt("请输入博客的分类:");
+	else{
+		category = prompt("请输入博客的分类:");
+	}
 	if(!category||(/^[ ]+$/.test(category))){
 		category=undefined;
 		return;
 	}
-	var categoryObj=document.createElement('div');
-	get('except-qq').appendChild(categoryObj);
-	categoryObj.id = 'category';
+	var categoryObj=get('category');
+	categoryObj.style.display = 'block';
 	categoryObj.innerHTML = category;
 }
 function save(){
@@ -284,7 +282,7 @@ function save(){
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send('title='+title+'&category='+category+'&text='+text+'&publish=0');
 }
-function publish(){
+function publish() {
 	text = toStr();
 	var published=0;
 	if(!title||(/^[ ]+$/.test(title))){
@@ -303,13 +301,14 @@ function publish(){
 			result = JSON.parse(xmlhttp.responseText);
 			console.log(result.published);
 			if(result.published==1){
+
 				alert('发表成功!');
-				window.location.href = '/home';
+				//window.location.href = '/home';
 				published = 1;
 			}
 		}
 	}
-	url = '/write'+'?title='+title+'&publish=1';
+	url = '/write'+'?title='+title+'&publish='+1;
 	xmlhttp.open("GET",url,false);
 	xmlhttp.send();
 	if(published==1){
@@ -346,4 +345,17 @@ function publish(){
 	xmlhttp.open("POST",url,true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send('title='+title+'&category='+category+'&text='+text+'&publish=1');
+}
+window.onload = function(){
+	get('input1').setAttribute('index',1);
+	get('input1').setAttribute('length',47);
+	get('input1').focus();
+	if(get('title').innerHTML!=''&&get('category').innerHTML!=''){
+		get('title').style.display = 'block';
+		get('category').style.display = 'block';
+		get('input1').value = get('hide').innerHTML;
+		title = get('title').innerHTML;
+		category = get('category').innerHTML;
+		displayInput('input1');
+	}
 }

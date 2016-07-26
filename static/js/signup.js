@@ -34,6 +34,7 @@ function isEmailExist(email){
 }
 function isNicknameExist(nickname){
 	var xmlhttp;
+	var exist=0;
 	if(window.XMLHttpRequest){
 		xmlhttp=new XMLHttpRequest();
 	}
@@ -43,17 +44,20 @@ function isNicknameExist(nickname){
 	xmlhttp.onreadystatechange=function(){
 		if(xmlhttp.readyState==4&&xmlhttp.status==200){
 			result=JSON.parse(xmlhttp.responseText);
-			if(result.exist==0){
-				return false; 
-			}
-			else{
-				return true;
+			if(result.exist==1){
+				exist=1;
 			}
 		}
 	}
 	url='/signup'+'?nickname='+nickname;
 	xmlhttp.open("GET",url,false);
 	xmlhttp.send();
+	if (exist==1) {
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 function isNicknameEmpty(nickname){
 	if(nickname == ''||(/^[ ]+$/.test(nickname))){
@@ -68,7 +72,7 @@ function checkEmail(id){
 	get('error4').style.display = 'none';
 	if(isEmailExist(email)){
 		get('error4').style.display = 'inline';
-	}
+	}	
 	else if (!isEmailValid(email)) {
 		get('error1').style.display = 'inline';
 	}
@@ -85,7 +89,7 @@ function checkNickname(id){
 	if(isNicknameEmpty(nickname)){
 		get('error2').style.display = 'inline';
 	}
-	else if(!isNicknameExist(nickname)){
+	else if(isNicknameExist(nickname)){
 		get('error3').style.display = 'inline';
 	}
 	else{
@@ -178,7 +182,7 @@ function summit(){
 	else if(isNicknameEmpty(nickname)){
 		alert('昵称不能为空!');
 	}
-	else if(!isNicknameExist(nickname)){
+	else if(isNicknameExist(nickname)){
 		alert('昵称已存在!');
 	}
 	else if(passwd == ''||(/^[ ]+$/.test(passwd))){

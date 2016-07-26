@@ -98,3 +98,29 @@ window.onload = function(){
 		}
 	}
 }
+function del(object){
+	console.log(object.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[0].innerHTML);
+	var title = object.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[0].innerHTML;
+	var xmlhttp;
+	if(window.XMLHttpRequest){
+		xmlhttp = new XMLHttpRequest();
+	}
+	else{
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result = JSON.parse(xmlhttp.responseText);
+			if(result.success==1){
+				alert('删除成功!你的博客还能在仓库找回来哦~');
+				window.location.href = '/home';
+			}
+			else{
+				alert('哎呀,出了点小问题,待会再试下吧');
+			}
+		}
+	}
+	var url = '/home'+'?title='+title;
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send();
+}

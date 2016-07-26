@@ -5,8 +5,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>博客园 - 个人主页</title>
-	<link rel="stylesheet" type="text/css" href="../static/css/home.css">
-	<script type="text/javascript" src="../static/js/home.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/warehouse.css">
+	<script type="text/javascript" src="../static/js/warehouse.js"></script>
 	<script type="text/javascript" src="../static/js/markdown.js"></script>
 </head>
 {% block body %}
@@ -38,10 +38,7 @@
 		</div>
 		<div id="left" onclick="hideSubMenu($('menu'))">
 			<img src="../static/pics/qq.png" id="head">
-			<div id="username">{{nickname}}</div>
-			<div id="edit">
-				<a href="javascript:void(0)" id="introduction" onclick="edit()">编辑个人介绍</a>
-			</div>
+			<div id="username">{{nickname}}的仓库</div>
 			<ul id="top" type="none">
 				<li>
 					<a href="" id="care">
@@ -79,43 +76,55 @@
 		</div>
 		<div id="center" onclick="hideSubMenu($('menu'))">
 			<div id="navbar">
-				<a href="javascript:void(0)" onclick="underline(this.id)" id="new">最新博客</a>
-				<a href="javascript:void(0)" onclick="underline(this.id)" id="state">最新动态</a>
-				<a href="javascript:void(0)" onclick="underline(this.id)" id="hot">热门博客</a>
-			</div>
-			<div id="newest">
-				<div id="time">{{newPassTime}}</div>
-				<a href="javascript:void(0)" onclick="toPass()" id="title">{{newPassTitle}}</a>
-				<div id="status">
-					<a href="javascript:void(0)" onclick="toPass()">阅读{{readt}}</a>
-					<a href="javascript:void(0)" onclick="toPass()">评论{{commentt}}</a>
-					<span>喜欢{{liket}}</span>
-				</div>
-			</div>
-			<div id="news">
+				{% if ps %}
 				{% for p in ps %}
-				<div id="p-container">
-					<div id="p">
-						<span id="label">
-							<i class="fa fa-themes"></i>
-							{{p['category']}}
-						</span>
-						<div class="ti">{{p['title']}}</div>
-						<div class="te">{{p['text']}}</div>
-					</div>
-					<div id="note">
-						<span id="com">评论({{p['comt']}})</span>
-						<span>{{p['time']}}</span>
-						<a href="javascript:void(0)" onclick="del(this)">删除</a>
-					</div>
-				</div>
+				<a href="javascript:void(0)" onclick="change(this)">{{p['category']}}</a>
 				{% endfor %}
-				<div id="attend">
-					<div id="attendInfo"><span>{{nickname}}</span>加入博客园</div>
-					<div id="attendTime">2016.07.04 14:45</div>
+				{% endif %}
+			</div>
+			{% if ps %}
+			{% for p in ps %}
+			<div class="passages">
+				<div id="hideCategory">{{p['category']}}</div>
+				<div id="news"> 
+					{% for passage in p['passages'] %}
+					<div id="p-container">
+						<div id="p">
+							<span id="published">
+								{% if passage['published'] %}
+								<div id="yes">
+									<i class="fa fa-check-circle"></i>
+									已发表
+								</div>
+								{% else %}
+								<div id="no">
+									<i class="fa fa-exclamation-circle"></i>
+									未发表
+								</div>
+								{% endif %}
+							</span>
+							<span id="label">
+								<i class="fa fa-themes"></i>
+								{{p['category']}}
+							</span>
+							<div class="ti" id="ti">{{passage['title']}}</div>
+							<div class="te">{{passage['text']}}</div>	
+						</div>
+						<div id="note">
+							<span id="com">评论({{passage['comt']}})</span>
+							<span>{{passage['time']}}</span>
+							{% if not passage['published'] %}
+							<a href="javascript:void(0)" onclick="publish(this)">发表</a>
+							{% endif %}
+							<a href="javascript:void(0)" onclick="update(this)">修改</a>
+							<a href="javascript:void(0)" onclick="del(this)">删除</a>
+						</div>
+					</div>
+					{% endfor %}
 				</div>
 			</div>
-		</div>
+			{% endfor %}
+			{% endif %}
 		<div id="right" onclick="hideSubMenu($('menu'))"></div>
 		<a href="javascript:void(0)" class="head" data-toggle="dropdown" onclick="displaySubMenu(document.getElementById('menu'))">
 				<img src="../static/pics/qq.png" class="qq">	

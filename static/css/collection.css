@@ -134,7 +134,7 @@ a
  {
  	color: white;
  }
- .home
+ .warehouse
  {
  	width: 45px;
 	height: 45px;
@@ -144,6 +144,27 @@ a
 	line-height: 45px;
 	position: fixed;
 	bottom: 135px;
+	text-decoration: none;
+	display: block;
+ }
+ .warehouse:hover
+ {
+ 	color: white;
+ }
+ .fa-warehouse:before
+ {
+ 	content: "\f09b";
+ }
+ .home
+ {
+ 	width: 45px;
+	height: 45px;
+	color: #999999;
+	font-size: 18px;
+	text-align: center;
+	line-height: 45px;
+	position: fixed;
+	bottom: 180px;
 	text-decoration: none;
 	display: block;
  }

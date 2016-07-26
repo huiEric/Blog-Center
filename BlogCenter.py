@@ -40,7 +40,7 @@ def write():
             category=request.form['category']
             text=request.form['text']
             publish=request.form['publish']
-            if publish==0:
+            if publish=='0':
                 a=cur.execute("insert into blog(title,category,author,text) values(%s,%s,%s,%s)",(title,category,nickname,text))
             else:
                 a=cur.execute('insert into blog(title,category,author,text,published) values(%s,%s,%s,%s,%s)',(title,category,nickname,text,1))
@@ -62,10 +62,12 @@ def write():
                 exist=0
             else:
                 exist=1
-            if publish==1:
+            if publish=='1':
+                print publish
                 if exist==1:
                     nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
                     a=cur.execute('update blog set published=%s where title=%s and author=%s',(1,title,nickname))
+                    print 'a=',a
                     if a==1:
                         cur.close()
                         conn.commit()
@@ -82,7 +84,12 @@ def write():
             cur.close()
             conn.close()
             return jsonify({'exist':exist})
-        return render_template('write.html')
+        if 'p' in session:
+            p=session['p']
+            session.pop('p',None)
+            return render_template('write.html',p=p)
+        p={'title':'','category':'','text':''}
+        return render_template('write.html',p=p)
     else:
         return redirect(url_for('index'))
 
@@ -145,8 +152,8 @@ def signup():
         cur.close()
         conn.commit()
         conn.close()
+        session['email']=email
         return redirect(url_for('home'))
-   
     return render_template('signup.html')
 
 @app.route('/home')
@@ -155,20 +162,32 @@ def home():
         conn=connect()
         cur=conn.cursor()
         nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
-        a=cur.execute('select createTime from blog where author=%s',(nickname,))
+        title=request.args.get('title')
+        if title!=None:
+            a=cur.execute('update blog set published=0 where title=%s and author=%s',(title,nickname))
+            if a==1:
+                success=1
+            else:
+                success=0
+            cur.close()
+            conn.commit()
+            conn.close()
+            return jsonify({'success':success})
+        a=cur.execute('select createTime from blog where author=%s and published=1',(nickname,))
         if a!=0:
-            newTime=cur.fetchmany(cur.execute('select createTime from blog where author=%s order by createTime desc',(nickname,)))[0][0]
+            newTime=cur.fetchmany(cur.execute('select createTime from blog where author=%s and published=1 order by createTime desc',(nickname,)))[0][0]
             newPassTitle=cur.fetchmany(cur.execute('select title from blog where createTime=%s',(newTime,)))[0][0]
             readt=cur.execute('select * from readInfo where author=%s and title=%s',(nickname,newPassTitle))
             commentt=cur.execute('select * from comment where author=%s and title=%s',(nickname,newPassTitle))
             liket=cur.execute('select * from likeInfo where author=%s and title=%s',(nickname,newPassTitle))
-            titles=cur.fetchmany(cur.execute('select title from blog where author=%s order by createTime desc',(nickname,)))
+            titles=cur.fetchmany(cur.execute('select title from blog where author=%s and published=1 order by createTime desc',(nickname,)))
             ps=[]
             for title in titles:
                 text=cur.fetchmany(cur.execute('select text from blog where title=%s and author=%s',(title[0],nickname)))[0][0]
                 comt=cur.execute('select * from comment where title=%s and author=%s',(title[0],nickname))
                 time=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title[0],nickname)))[0][0]
-                ps.append({'title':title[0],'text':text,'comt':comt,'time':time})
+                category=cur.fetchmany(cur.execute('select category from blog where title=%s and author=%s',(title[0],nickname)))[0][0]
+                ps.append({'title':title[0],'text':text,'comt':comt,'time':time,'category':category})
             cur.close()
             conn.close()
             return render_template('home.html',newPassTime=newTime,newPassTitle=newPassTitle,readt=readt,commentt=commentt,liket=liket,nickname=nickname,ps=ps)
@@ -180,6 +199,71 @@ def home():
 @app.route('/set')
 def set():
     return render_template('set.html')
+
+@app.route('/warehouse')
+def warehouse():
+    if 'email' in session:
+        conn=connect()
+        cur=conn.cursor()
+        nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
+        title=request.args.get('title')
+        if title!=None:
+            delete=request.args.get('del')
+            if delete!=None:
+                a=cur.execute('delete from blog where title=%s and author=%s',(title,nickname))
+                if a==1:
+                    success=1
+                else:
+                    success=0
+                cur.close()
+                conn.commit()
+                conn.close()
+                return jsonify({'success':success})
+            update=request.args.get('update')
+            if update!=None:
+                a=cur.execute('select * from blog where title=%s and author=%s',(title,nickname))
+                if a!=0:
+                    category=cur.fetchmany(cur.execute('select category from blog where title=%s and author=%s',(title,nickname)))[0][0]
+                    text=cur.fetchmany(cur.execute('select text from blog where title=%s and author=%s',(title,nickname)))[0][0]
+                    p={'title':title,'category':category,'text':text}
+                    cur.execute('delete from blog where title=%s and author=%s',(title,nickname))
+                    cur.close()
+                    conn.commit()
+                    conn.close()
+                    session['p']=p
+                    return jsonify({'success':1})
+            a=cur.execute('update blog set published=%s where title=%s and author=%s',(1,title,nickname))
+            if a==1:
+                success=1
+            else:
+                success=0
+            cur.close()
+            conn.commit()
+            conn.close()
+            return jsonify({'success':success})
+        a=cur.execute('select * from blog where author=%s',(nickname,))
+        if a!=0:
+            categories=cur.fetchmany(cur.execute('select distinct category from blog where author=%s',(nickname,)))
+            ps=[]
+            for category in categories:
+                titles=cur.fetchmany(cur.execute('select title from blog where author=%s and category=%s order by createTime desc',(nickname,category[0])))
+                passages=[]
+                for title in titles:
+                    text=cur.fetchmany(cur.execute('select text from blog where title=%s and author=%s',(title[0],nickname)))[0][0]
+                    comt=cur.execute('select * from comment where title=%s and author=%s',(title[0],nickname))
+                    time=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title[0],nickname)))[0][0]
+                    published=int(cur.fetchmany(cur.execute('select published from blog where title=%s and author=%s',(title[0],nickname)))[0][0])
+                    passages.append({'title':title[0],'text':text,'comt':comt,'time':time,'published':published})
+                ps.append({'category':category[0],'passages':passages})
+                print ps
+            cur.close()
+            conn.close()
+        else:
+            ps=[]
+            cur.close()
+            conn.close()
+        return render_template('warehouse.html',nickname=nickname,ps=ps)
+    return redirect(url_for('index'))
 
 @app.route('/logout')
 def logout():

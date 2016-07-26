@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/set.css">
 	<script type="text/javascript" src="../static/js/set.js"></script>
 </head>
-<body>
+{% block body %}
 		<div id="nav-bar" onclick="hideSubMenu(document.getElementById('menu'))">
 			<div>
 				<a href="/" id="wonders"><b>博</b></a>
@@ -24,6 +24,9 @@
 			</div> 
 			<div>
 				<a href="/collection" class="collection"><i class="fa fa-collection" aria-hidden="true"></i></a>
+			</div>
+			<div>
+				<a href="/warehouse" class="warehouse"><i class="fa fa-warehouse"></i></a>
 			</div>
 			<div>
 				<a href="/home" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
@@ -93,6 +96,12 @@
 					</a>
 				</li>
 				<li>
+					<a href="/warehouse">
+						<i class="fa fa-warehouse"></i>
+						我的仓库
+					</a>
+				</li>
+				<li>
 					<a href="/collection">
 						<i class="fa fa-collection"></i>
 						我的收藏
@@ -111,5 +120,5 @@
 					</a>
 				</li>
 			</ul>
-</body>
+{% endblock %}
 </html> 
