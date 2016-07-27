@@ -21,9 +21,50 @@ def index():
         return jsonify({'isLogin':isLogin})
     return render_template('index.html')
 
-@app.route('/themes')
+@app.route('/themes',methods=['POST','GET'])
 def themes():
-    return render_template('themes.html')
+    conn=connect()
+    cur=conn.cursor()
+    if request.method=='POST':
+        author=request.form['author']
+        title=request.form['title']
+        readTimes=cur.fetchmany(cur.execute('select readTimes from blog where title=%s and author=%s',(title,author)))[0][0]
+        cur.execute('update blog set readTimes=%s where title=%s and author=%s',(int(readTimes)+1,title,author))
+        a=cur.fetchmany(cur.execute('select * from blog where author=%s and title=%s',(author,title)))[0]
+        text=a[1]
+        category=a[5]
+        createTime=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title,author)))[0][0]
+        readTimes=a[7]
+        commentTimes=a[8]
+        cur.close()
+        conn.commit()
+        conn.close()
+        return jsonify({'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes})
+    a=cur.execute('select * from blog')
+    if a!=0:
+        categories=cur.fetchmany(cur.execute('select distinct category from blog'))
+        ps=[]
+        for category in categories:
+            passages=[]
+            c=cur.execute('select * from blog where category=%s and published=1',(category[0],))
+            if c==0:
+                continue
+            b=cur.fetchmany(cur.execute('select * from blog where category=%s and published=1 order by readTimes desc',(category[0],)))
+            for p in b:
+                title=p[3]
+                author=p[4]
+                time=p[2]
+                readTimes=p[7]
+                commentTimes=p[8]
+                passages.append({'title':title,'author':author,'readTimes':readTimes,'commentTimes':commentTimes,'time':time})
+            ps.append({'category':category[0],'passages':passages})
+        cur.close()
+        conn.close()
+    else:
+        ps=[]
+        cur.close()
+        conn.close()
+    return render_template('themes.html',ps=ps)
 
 @app.route('/collection')
 def collection():
@@ -255,7 +296,6 @@ def warehouse():
                     published=int(cur.fetchmany(cur.execute('select published from blog where title=%s and author=%s',(title[0],nickname)))[0][0])
                     passages.append({'title':title[0],'text':text,'comt':comt,'time':time,'published':published})
                 ps.append({'category':category[0],'passages':passages})
-                print ps
             cur.close()
             conn.close()
         else:
