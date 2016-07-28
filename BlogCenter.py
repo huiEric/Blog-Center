@@ -26,8 +26,26 @@ def themes():
     conn=connect()
     cur=conn.cursor()
     if request.method=='POST':
-        author=request.form['author']
         title=request.form['title']
+        author=request.form['author']
+        #comment=None
+        #comment=request.form['comment']
+        #print comment
+        if 'comment' in request.form:
+            comment=request.form['comment']
+            nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
+            a=cur.execute('insert into comment(nickname,title,author,comment) values(%s,%s,%s,%s)',(nickname,title,author,comment))
+            if a==1:
+                commentTimes=int(cur.fetchmany(cur.execute('select commentTimes from blog where title=%s and author=%s',(title,author)))[0][0])
+                cur.execute('update blog set commentTimes=%s where title=%s and author=%s',(commentTimes+1,title,author))
+                commentTime=cur.fetchmany(cur.execute('select distinct commentTime from comment where comment=%s and nickname=%s and title=%s and author=%s',(comment,nickname,title,author)))[0][0]
+                success=1
+            else:
+                success=0
+            cur.close()
+            conn.commit()
+            conn.close()
+            return jsonify({'success':success,'commentor':nickname,'comment':comment,'commentTime':commentTime})
         readTimes=cur.fetchmany(cur.execute('select readTimes from blog where title=%s and author=%s',(title,author)))[0][0]
         cur.execute('update blog set readTimes=%s where title=%s and author=%s',(int(readTimes)+1,title,author))
         a=cur.fetchmany(cur.execute('select * from blog where author=%s and title=%s',(author,title)))[0]
@@ -36,10 +54,23 @@ def themes():
         createTime=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title,author)))[0][0]
         readTimes=a[7]
         commentTimes=a[8]
+        comments=[]
+        a=cur.fetchmany(cur.execute('select * from comment where title=%s and author=%s order by commentTime',(title,author)))
+        for b in a:
+            comments.append({'commentor':b[1],'comment':b[4],'commentTime':b[5]})
+        if 'email' not in session:
+            session['comment']={'title':title,'author':author,'createTime':createTime}
+            login=0
+        else:
+            login=1
         cur.close()
         conn.commit()
         conn.close()
-        return jsonify({'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes})
+        return jsonify({'login':login,'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes,'comments':comments})
+    if 'comment' in session:
+        comment=session['comment']
+        session.pop('comment',None)
+        return render_template('themes.html',comment=comment)
     a=cur.execute('select * from blog')
     if a!=0:
         categories=cur.fetchmany(cur.execute('select distinct category from blog'))
@@ -154,6 +185,8 @@ def signin():
             conn.close()
             return jsonify({'success':0,'error':error})
         session['email']=email
+        if 'comment' in session:
+            return jsonify({'comment':1})
         return jsonify({'success':1})
     return render_template('signin.html')
 

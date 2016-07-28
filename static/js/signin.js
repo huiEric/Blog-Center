@@ -39,6 +39,9 @@ function summit(){
 				error=result.error;
 				alert(error);
 			}
+			else if(result.comment==1){
+				window.location.href = '/themes';
+			}
 			else{
 				window.location.href='/home';
 			}

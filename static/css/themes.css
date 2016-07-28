@@ -495,3 +495,68 @@ a
 	margin-top: 10px;
 	cursor: pointer;
 }
+#tocomment
+{
+	width: 112px;
+	display: block;
+	font-size: 16px;
+	padding: 8px 15px;
+	background-color: #3dbcf5;
+	color: white;
+	border-radius: 5px;
+	margin: 50px auto;
+	cursor: pointer;
+}
+#hideTitle,#hideAuthor,#hideCreateTime
+{
+	display: none;
+}
+#back
+{
+	width: 48px;
+	height: 26px;
+	text-align: center;
+	line-height: 26px;
+	background-color: #3dbcf5;
+	font-size: 14px;
+	color: white;
+	border-radius: 3px;
+	float: left;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+#comContainer
+{
+	margin-top: 50px;
+	border-top: 1px solid #eeeeee;
+	padding-bottom: 20px;
+}
+#or
+{
+	font-size: 14px;
+	color: #4094c7;
+	cursor: pointer;
+	position: relative;
+	top: 10px;
+}
+#or:hover
+{
+	color: #075b8d;
+}
+#lou
+{
+	font-size: 13px;
+	color: #999999;
+	margin-right: 5px;
+}
+#timeInfo
+{
+	font-size: 13px;
+	color: #b1b1b1;
+}
+#comText
+{
+	font-size: 16px;
+	color: #555555;
+	margin-top: 20px;
+}

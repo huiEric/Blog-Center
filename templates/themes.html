@@ -15,7 +15,7 @@
 			<a href="/" id="wonders"><b>博</b></a>
 		</div>
 		<div>
-			<a href="javascript:void(0)" id="themes">
+			<a href="/themes" id="themes">
 				<i class="fa fath" aria-hidden="true"></i>
 			</a>
 		</div>
@@ -52,5 +52,10 @@
 			{% endfor %}
 			{% endif %}
 	</div>
+	{% if comment %}
+	<div id="hideTitle">{{comment['title']}}</div>
+	<div id="hideAuthor">{{comment['author']}}</div>
+	<div id="hideCreateTime">{{comment['createTime']}}</div>
+	{% endif %}
 {% endblock %}
 </html>
