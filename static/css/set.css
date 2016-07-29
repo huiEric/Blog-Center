@@ -491,3 +491,7 @@ a
 {
 	display: none;
 }
+#hideNickname,#hideEmail,#hideTel,#hideImgPath,#hideIntro
+{
+	display: none;
+}

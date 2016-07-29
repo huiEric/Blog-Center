@@ -37,10 +37,12 @@
 			</div>
 		</div>
 		<div id="left" onclick="hideSubMenu($('menu'))">
-			<img src="../static/pics/qq.png" id="head">
+			<img id="head">
+			<div id="hideImgPath">{{imgPath}}</div>
 			<div id="username">{{nickname}}</div>
 			<div id="edit">
 				<a href="javascript:void(0)" id="introduction" onclick="edit()">编辑个人介绍</a>
+				<div id="hideIntro">{{intro}}</div>
 			</div>
 			<ul id="top" type="none">
 				<li>
@@ -108,6 +110,15 @@
 						<span>{{p['time']}}</span>
 						<a href="javascript:void(0)" onclick="del(this)">删除</a>
 					</div>
+					{% for comment in p['comments'] %}
+					<div id="comment">
+						<p>
+							<a href="" id="commentor">{{comment['commentor']}}</a>
+						</p>
+						<span id="commentTime">{{comment['commentTime']}}</span>
+						<div id="commentText">{{comment['comment']}}</div>
+					</div>
+					{% endfor %}
 				</div>
 				{% endfor %}
 				<div id="attend">

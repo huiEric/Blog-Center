@@ -47,25 +47,34 @@
 			</div>
 			<div id="basicContent">
 				<p>昵称</p>
-				<input type="text" name="nickname" id="nickname" value="b9d2331464db">
+				<input type="text" name="nickname" id="nickname">
+				<div id="hideNickname">{{nickname}}</div>
 				<p>电子邮件</p>
-				<input type="text" name="email" id="email" disabled="disabled" value="2655711088@qq.com">
+				<input type="text" name="email" id="email" disabled="disabled">
+				<div id="hideEmail">{{email}}</div>
 				<p>绑定手机号码</p>
-				<input type="text" name="tel" id="tel" disabled="disabled" value="15812345678">
-				<a href="" id="save">保存</a>
+				<input type="text" name="tel" id="tel">
+				{% if tel %}
+				<div id="hideTel">{{tel}}</div>
+				{% endif %}
+				<a href="javascript:void(0)" id="save" onclick="saveBasic(this)">保存</a>
 			</div>
 			<div id="infoContent">
 				<p>头像</p>
 				<div id="head">
-					<img src="../static/pics/qq.jpg" id="img">
+					<img id="img">
+					<div id="hideImgPath">{{imgPath}}</div>
 					<a href="javascript:void(0)" id="upload">
 						更换头像
-						<input type="file" name="upload">
+						<form action="" method="POST" enctype="multipart/form-data" id="form">
+							<input type="file" name="upload" onchange="send(this)">
+						</form>
 					</a>
 				</div>
 				<p>简介</p>
 				<textarea id="textarea"></textarea>
-				<a href="" id="save">保存</a>
+				<div id="hideIntro">{{intro}}</div>
+				<a href="javascript:void(0)" id="save" onclick="saveIntro()">保存</a>
 			</div>
 			<div id="passwdContent">
 				<p>原始密码</p>
@@ -79,7 +88,7 @@
 		</div>
 		<div id="right" onclick="hideSubMenu($('menu'))"></div>
 		<a href="javascript:void(0)" class="head" data-toggle="dropdown" onclick="displaySubMenu(document.getElementById('menu'))">
-				<img src="../static/pics/qq.png" class="qq">	
+				<img class="qq">	
 				<b class="caret"></b>
 			</a>
 			<ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel" id="menu">

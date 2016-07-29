@@ -648,3 +648,40 @@ li
 	color: #4094c7;
 	margin-right: 10px;
 }
+#comment
+{
+	margin-top: 50px;
+	border-top: 1px solid #eeeeee;
+	padding-bottom: 20px;
+}
+#commentor
+{
+	font-size: 14px;
+	color: #4094c7;
+	cursor: pointer;
+	position: relative;
+	top: 10px;
+}
+#commentor:hover
+{
+	color: #075b8d;
+}
+#commentTime
+{
+	font-size: 13px;
+	color: #b1b1b1;
+}
+#commentText
+{
+	font-size: 16px;
+	color: #555555;
+	margin-top: 20px;
+}
+#hideImgPath
+{
+	display: none;
+}
+#hideIntro
+{
+	display: none;
+}

@@ -10,7 +10,9 @@ var $ = function(id){
 var g = function(classname){
 	return document.getElementsByClassName(classname);
 }
-
+var get = function(tag){
+	return document.getElementsByTagName(tag);
+}
 function edit(){
 	var input = document.createElement('input');
 	$('edit').appendChild(input);
@@ -37,12 +39,53 @@ function edit(){
 	textarea.style.color = "#555555";
 	textarea.style.borderRadius = "4px";
 	textarea.style.padding = "5px 10px 5px 10px";
+	textarea.value = $('hideIntro').innerHTML;
 	var summit = document.createElement('a');
 	$('edit').appendChild(summit);
 	summit.href = "javascript:void(0)";
 	summit.innerHTML = "保存";
 	summit.id = "summit";
 	summit.onclick = function onclick(event){
+		var nickname = input.value;
+		if(isNicknameEmpty(nickname)){
+			alert('昵称不能为空!');
+			return;
+		}
+		if(nickname!=$('username').innerHTML && isNicknameExist(nickname)){
+			alert('昵称已存在');
+			return;
+		}
+		var intro = textarea.value;
+		var xmlhttp;
+		if(window.XMLHttpRequest){
+			xmlhttp = new XMLHttpRequest();
+		}
+		else{
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function(){
+			if(xmlhttp.readyState==4&&xmlhttp.status==200){
+				result = JSON.parse(xmlhttp.responseText);
+				if(result.success==1){
+					alert('保存成功!');	
+					window.location.href = '/home';
+				}
+				else{
+					alert('一不小心失败了,等一下再试试吧~');
+				}
+			}
+		}
+		url = '/home';
+		xmlhttp.open("POST",url,true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send('intro='+intro+'&nickname='+nickname);
+	}
+	var cancel = document.createElement('a');
+	$('edit').appendChild(cancel);
+	cancel.href = "javascript:void(0)";
+	cancel.innerHTML = "取消";
+	cancel.id = "cancel";
+	cancel.onclick = function onclick(event){
 		$('edit').removeChild(input);
 		$('edit').removeChild(textarea);
 		$('edit').removeChild(summit);
@@ -56,12 +99,6 @@ function edit(){
 			edit();
 		}
 	}
-	var cancel = document.createElement('a');
-	$('edit').appendChild(cancel);
-	cancel.href = "javascript:void(0)";
-	cancel.innerHTML = "取消";
-	cancel.id = "cancel";
-	cancel.onclick = summit.onclick;
 }
 function underline(id){
 	$('new').style.borderBottomColor = "transparent";
@@ -85,6 +122,9 @@ function toPass(){
 	$('pass').style.display = 'block';
 }
 window.onload = function(){
+	for (var i in get('img')){
+		get('img')[i].src = $('hideImgPath').innerHTML;
+	}
 	for (var i in g('ti')){
 		if(parseInt(i).toString()!='NaN'){
 			title = g('ti')[i];
@@ -123,4 +163,37 @@ function del(object){
 	var url = '/home'+'?title='+title;
 	xmlhttp.open("GET",url,true);
 	xmlhttp.send();
+}
+function isNicknameExist(nickname){
+	var xmlhttp;
+	var exist=0;
+	if(window.XMLHttpRequest){
+		xmlhttp=new XMLHttpRequest();
+	}
+	else{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result=JSON.parse(xmlhttp.responseText);
+			if(result.exist==1){
+				exist=1;
+			}
+		}
+	}
+	url='/signup'+'?nickname='+nickname;
+	xmlhttp.open("GET",url,false);
+	xmlhttp.send();
+	if (exist==1) {
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+function isNicknameEmpty(nickname){
+	if(nickname == ''||(/^[ ]+$/.test(nickname))){
+		return true;
+	}
+	return false;
 }

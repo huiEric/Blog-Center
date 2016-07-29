@@ -2,15 +2,20 @@
 # coding=utf-8
 
 from flask import Flask,request,jsonify,render_template,session,redirect,url_for
+from werkzeug import secure_filename
 import MySQLdb,os,sys
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+UPLOAD_FOLDER='static/pics/'
+ALLOWED_EXTENSIONS=set(['txt','pdf','png','jpg','jpeg','gif'])
+
 app = Flask(__name__)
 app.secret_key=os.urandom(30)
+app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
 
-@app.route('/')
+@app.route('/',methods=['POST','GET'])
 def index():
     q=request.args.get('q')
     if q!=None:
@@ -19,12 +24,35 @@ def index():
         else:
             isLogin=0
         return jsonify({'isLogin':isLogin})
-    return render_template('index.html')
+    if request.method=='POST':
+        title=request.form['title']
+        author=request.form['author']
+        session['read']={'title':title,'author':author}
+        return jsonify({'ok':1})
+    passages=[]
+    n=0
+    conn=connect()
+    cur=conn.cursor()
+    a=cur.fetchmany(cur.execute('select * from blog order by readTimes desc'))
+    for b in a:
+        n+=1
+        if n>10:
+            break
+        passages.append({'title':b[3],'readTimes':b[7],'commentTimes':b[8],'time':b[2],'author':b[4]})
+    return render_template('index.html',passages=passages)
 
 @app.route('/themes',methods=['POST','GET'])
 def themes():
     conn=connect()
     cur=conn.cursor()
+    if 'read' in session:
+        read=session['read']
+        session.pop('read',None)
+        title=read['title']
+        author=read['author']
+        createTime=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title,author)))[0][0]
+        comment={'title':title,'author':author,'createTime':createTime}
+        return render_template('themes.html',comment=comment)
     if request.method=='POST':
         title=request.form['title']
         author=request.form['author']
@@ -67,7 +95,7 @@ def themes():
         conn.commit()
         conn.close()
         return jsonify({'login':login,'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes,'comments':comments})
-    if 'comment' in session:
+    if ('comment' in session) and ('email' in session):
         comment=session['comment']
         session.pop('comment',None)
         return render_template('themes.html',comment=comment)
@@ -81,7 +109,11 @@ def themes():
             if c==0:
                 continue
             b=cur.fetchmany(cur.execute('select * from blog where category=%s and published=1 order by readTimes desc',(category[0],)))
+            n=0
             for p in b:
+                n+=1
+                if n>10:
+                    break
                 title=p[3]
                 author=p[4]
                 time=p[2]
@@ -104,9 +136,11 @@ def collection():
 @app.route('/write',methods=['GET','POST'])
 def write():
     if 'email' in session:
+        conn=connect()
+        cur=conn.cursor()
+        imgPath=cur.fetchmany(cur.execute('select imgPath from basicInfo where email=%s',(session['email'],)))[0][0]
+        imgPath=os.path.join(app.config['UPLOAD_FOLDER'],imgPath)
         if request.method=='POST':
-            conn=connect()
-            cur=conn.cursor()
             nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
             title=request.form['title']
             category=request.form['category']
@@ -159,9 +193,9 @@ def write():
         if 'p' in session:
             p=session['p']
             session.pop('p',None)
-            return render_template('write.html',p=p)
+            return render_template('write.html',p=p,imgPath=imgPath)
         p={'title':'','category':'','text':''}
-        return render_template('write.html',p=p)
+        return render_template('write.html',p=p,imgPath=imgPath)
     else:
         return redirect(url_for('index'))
 
@@ -230,13 +264,25 @@ def signup():
         return redirect(url_for('home'))
     return render_template('signup.html')
 
-@app.route('/home')
+@app.route('/home',methods=['POST','GET'])
 def home():
     if 'email' in session:
         conn=connect()
         cur=conn.cursor()
         nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
+        intro=cur.fetchmany(cur.execute('select intro from basicInfo where nickname=%s',(nickname,)))[0][0]
+        imgPath=cur.fetchmany(cur.execute('select imgPath from basicInfo where nickname=%s',(nickname,)))[0][0]
+        imgPath=os.path.join(app.config['UPLOAD_FOLDER'],imgPath)
         title=request.args.get('title')
+        if request.method=='POST':
+            nickname=request.form['nickname']
+            intro=request.form['intro']
+            cur.execute('update basicInfo set nickname=%s where email=%s',(nickname,session['email'],))
+            cur.execute('update basicInfo set intro=%s where email=%s',(intro,session['email']))
+            cur.close()
+            conn.commit()
+            conn.close()
+            return jsonify({'success':1})
         if title!=None:
             a=cur.execute('update blog set published=0 where title=%s and author=%s',(title,nickname))
             if a==1:
@@ -257,22 +303,66 @@ def home():
             titles=cur.fetchmany(cur.execute('select title from blog where author=%s and published=1 order by createTime desc',(nickname,)))
             ps=[]
             for title in titles:
+                comments=[]
+                b=cur.fetchmany(cur.execute('select * from comment where title=%s and author=%s order by commentTime desc',(title[0],nickname)))
+                for c in b:
+                    comments.append({'commentor':c[1],'commentTime':c[5],'comment':c[4]})
                 text=cur.fetchmany(cur.execute('select text from blog where title=%s and author=%s',(title[0],nickname)))[0][0]
                 comt=cur.execute('select * from comment where title=%s and author=%s',(title[0],nickname))
                 time=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title[0],nickname)))[0][0]
                 category=cur.fetchmany(cur.execute('select category from blog where title=%s and author=%s',(title[0],nickname)))[0][0]
-                ps.append({'title':title[0],'text':text,'comt':comt,'time':time,'category':category})
+                ps.append({'title':title[0],'text':text,'comt':comt,'time':time,'category':category,'comments':comments})
             cur.close()
             conn.close()
-            return render_template('home.html',newPassTime=newTime,newPassTitle=newPassTitle,readt=readt,commentt=commentt,liket=liket,nickname=nickname,ps=ps)
+            return render_template('home.html',newPassTime=newTime,newPassTitle=newPassTitle,readt=readt,commentt=commentt,liket=liket,nickname=nickname,ps=ps,imgPath=imgPath,intro=intro)
         else:
-            return render_template('home.html',nickname=nickname)
+            return render_template('home.html',nickname=nickname,imgPath=imgPath,intro=intro)
     else:
         return redirect(url_for('signin'))
 
-@app.route('/set')
+@app.route('/set',methods=['POST','GET'])
 def set():
-    return render_template('set.html')
+    if 'email' in session:
+        conn=connect()
+        cur=conn.cursor()
+        email=session['email']
+        imgPath=cur.fetchmany(cur.execute('select imgPath from basicInfo where email=%s',(email,)))[0][0]
+        imgPath=os.path.join(app.config['UPLOAD_FOLDER'],imgPath)
+        nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(email,)))[0][0]
+        intro=cur.fetchmany(cur.execute('select intro from basicInfo where nickname=%s',(nickname,)))[0][0]
+        if request.method=='POST':
+            if 'intro' in request.form:
+                intro=request.form['intro']
+                a=cur.execute('update basicInfo set intro=%s where nickname=%s',(intro,nickname))
+                cur.close()
+                conn.commit()
+                conn.close()
+                return jsonify({'success':1})
+            if 'upload' in request.files:
+                file=request.files['upload']
+                if file and allowed_file(file.filename):
+                    filename=secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+                    cur.execute('update basicInfo set imgPath=%s where email=%s',(filename,email))
+                    cur.close()
+                    conn.commit()
+                    conn.close()
+                    return redirect(url_for('set'))
+            nickname=request.form['nickname']
+            tel=request.form['tel']
+            a=cur.execute('update basicInfo set nickname=%s where email=%s',(nickname,session['email']))
+            b=cur.execute('update basicInfo set tel=%s where email=%s',(tel,session['email']))
+            success=1
+            cur.close()
+            conn.commit()
+            conn.close()
+            return jsonify({'success':success})
+        tel=cur.fetchmany(cur.execute('select tel from basicInfo where email=%s',(email,)))[0][0]
+        if tel!=None:
+            return render_template('set.html',email=email,nickname=nickname,tel=tel,imgPath=imgPath,intro=intro)
+        return render_template('set.html',email=email,nickname=nickname,imgPath=imgPath,intro=intro)
+    else:
+        return redirect(url_for('signin'))
 
 @app.route('/warehouse')
 def warehouse():
@@ -280,6 +370,8 @@ def warehouse():
         conn=connect()
         cur=conn.cursor()
         nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
+        imgPath=cur.fetchmany(cur.execute('select imgPath from basicInfo where nickname=%s',(nickname,)))[0][0]
+        imgPath=os.path.join(app.config['UPLOAD_FOLDER'],imgPath)
         title=request.args.get('title')
         if title!=None:
             delete=request.args.get('del')
@@ -335,7 +427,7 @@ def warehouse():
             ps=[]
             cur.close()
             conn.close()
-        return render_template('warehouse.html',nickname=nickname,ps=ps)
+        return render_template('warehouse.html',nickname=nickname,ps=ps,imgPath=imgPath)
     return redirect(url_for('index'))
 
 @app.route('/logout')
@@ -351,6 +443,9 @@ def connect(host='localhost',port=5000,user='root',passwd='zjh2416256hg',db='blo
     cur.execute('set character set utf8;')
     cur.execute('set character_set_connection=utf8;')
     return conn
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS
 
 if __name__=='__main__':
     app.run(debug=True)

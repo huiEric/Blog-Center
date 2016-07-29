@@ -10,6 +10,9 @@ var $ = function(id){
 var g = function(classname){
 	return document.getElementsByClassName(classname);
 }
+var get = function(tag){
+	return document.getElementsByTagName(tag);
+}
 function publish(object){
 	var title = object.parentNode.parentNode.childNodes[1].childNodes[5].childNodes[0].innerHTML;
 	var xmlhttp;
@@ -36,12 +39,17 @@ function publish(object){
 	xmlhttp.send();
 }
 window.onload = function(){	
+	for (var i in get('img')){
+		get('img')[i].src = $('hideImgPath').innerHTML;
+	}
 	for (var i in g('passages')){
 		if(parseInt(i).toString()!='NaN'){
 			g('passages')[i].id = g('passages')[i].childNodes[1].innerHTML;
 		}
 	}
-	g('passages')[0].style.display = 'block';
+	if(g('passages')[0]){
+		g('passages')[0].style.display = 'block';
+	}
 	for (var i in g('ti')){
 		if(parseInt(i).toString()!='NaN'){
 			title = g('ti')[i];

@@ -346,10 +346,16 @@ function publish() {
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send('title='+title+'&category='+category+'&text='+text+'&publish=1');
 }
+var g = function(tag){
+	return document.getElementsByTagName(tag);
+}
 window.onload = function(){
 	get('input1').setAttribute('index',1);
 	get('input1').setAttribute('length',47);
 	get('input1').focus();
+	for (var i in g('img')){
+		g('img')[i].src = get('hideImgPath').innerHTML;
+	}
 	if(get('title').innerHTML!=''&&get('category').innerHTML!=''){
 		get('title').style.display = 'block';
 		get('category').style.display = 'block';
