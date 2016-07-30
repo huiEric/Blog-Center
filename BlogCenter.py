@@ -331,6 +331,25 @@ def set():
         nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(email,)))[0][0]
         intro=cur.fetchmany(cur.execute('select intro from basicInfo where nickname=%s',(nickname,)))[0][0]
         if request.method=='POST':
+            if 'passwd' in request.form:
+                passwd=request.form['passwd']
+                a=cur.execute('select * from basicInfo where email=%s and passwd=%s',(session['email'],passwd))
+                if a==1:
+                    correct=1
+                else:
+                    correct=0
+                return jsonify({'correct':correct})
+            if 'newPasswd' in request.form:
+                newPasswd=request.form['newPasswd']
+                a=cur.execute('update basicInfo set passwd=%s where email=%s',(newPasswd,email))
+                if a==1:
+                    success=1
+                else:
+                    success=0
+                cur.close()
+                conn.commit()
+                conn.close()
+                return jsonify({'success':success})
             if 'intro' in request.form:
                 intro=request.form['intro']
                 a=cur.execute('update basicInfo set intro=%s where nickname=%s',(intro,nickname))

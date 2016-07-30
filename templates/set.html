@@ -23,9 +23,6 @@
 				<a href="/set" class="set"><i class="fa fa-set" aria-hidden="true"></i></a>
 			</div> 
 			<div>
-				<a href="/collection" class="collection"><i class="fa fa-collection" aria-hidden="true"></i></a>
-			</div>
-			<div>
 				<a href="/warehouse" class="warehouse"><i class="fa fa-warehouse"></i></a>
 			</div>
 			<div>
@@ -78,12 +75,38 @@
 			</div>
 			<div id="passwdContent">
 				<p>原始密码</p>
-				<input type="password" name="origin">
+				<div id="input">
+					<input type="password" name="origin" onblur="checkOri(this)" id="origin">
+					<span id="error">
+						<i class="fa fa-exclamation-circle"></i>
+					</span>
+					<span id="correct">
+						<i class="fa fa-check-circle"></i>
+					</span>
+				</div>
 				<p>新密码</p>
-				<input type="password" name="new">
+				<div id="input">
+					<input type="password" name="new" onblur="checkNew(this)" id="new">
+					<span id="error">
+						<i class="fa fa-exclamation-circle"></i>
+						密码不为空
+					</span>
+					<span id="correct">
+						<i class="fa fa-check-circle"></i>
+					</span>
+				</div>
 				<p>确认新密码</p>
-				<input type="password" name="confirm">
-				<a href="" id="save">提交</a>
+				<div id="input">
+					<input type="password" name="confirm" onblur="checkConfirm(this)" id="confirm">
+					<span id="error">
+						<i class="fa fa-exclamation-circle"></i>
+						两次输入的密码不一致
+					</span>
+					<span id="correct">
+						<i class="fa fa-check-circle"></i>
+					</span>
+				</div>
+				<a href="javascript:void(0)" id="save" onclick="summit()">提交</a>
 			</div>
 		</div>
 		<div id="right" onclick="hideSubMenu($('menu'))"></div>
@@ -108,12 +131,6 @@
 					<a href="/warehouse">
 						<i class="fa fa-warehouse"></i>
 						我的仓库
-					</a>
-				</li>
-				<li>
-					<a href="/collection">
-						<i class="fa fa-collection"></i>
-						我的收藏
 					</a>
 				</li>
 				<li>

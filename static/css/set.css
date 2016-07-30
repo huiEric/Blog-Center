@@ -144,7 +144,7 @@ a
 	text-align: center;
 	line-height: 45px;
 	position: fixed;
-	bottom: 135px;
+	bottom: 90px;
 	text-decoration: none;
 	display: block;
  }
@@ -165,7 +165,7 @@ a
 	text-align: center;
 	line-height: 45px;
 	position: fixed;
-	bottom: 180px;
+	bottom: 135px;
 	text-decoration: none;
 	display: block;
  }
@@ -383,9 +383,21 @@ a
 	text-align: left;
 	font-size: 14px;
 }
-#basicContent input,#passwdContent input
+#basicContent input
 {
-	display: block; 	
+	display: block;	
+	margin: 5px auto;
+	width: 284px;
+	height: 34px;
+	border: 1px solid #cccccc;
+	padding: 4px 6px;
+	color: #555555;
+	font-size: 16px;
+	position: relative;
+	left: 7px;
+}
+#passwdContent input
+{
 	margin: 5px auto;
 	width: 284px;
 	height: 34px;
@@ -494,4 +506,28 @@ a
 #hideNickname,#hideEmail,#hideTel,#hideImgPath,#hideIntro
 {
 	display: none;
+}
+.fa-check-circle:before {
+  content: "\f058";
+}
+.fa-exclamation-circle:before {
+  content: "\f06a";
+}
+#correct
+{
+	color: #48A309;
+	display: none;
+	margin-left: 10px;
+}
+#error
+{
+	color: #f66;
+	margin-left: 10px;
+	font-size: 14px;
+	display: none;
+}
+#input
+{
+	width: 500px;
+	margin: 0 466px;
 }

@@ -140,3 +140,92 @@ function saveIntro(){
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send('intro='+intro);
 }
+function checkOri(object){
+	var xmlhttp;
+	var passwd = object.value;
+	if(window.XMLHttpRequest){
+		xmlhttp=new XMLHttpRequest();
+	}
+	else{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result=JSON.parse(xmlhttp.responseText);
+			if(result.correct==1){
+				object.parentNode.childNodes[3].style.display = 'none';
+				object.parentNode.childNodes[5].style.display = 'inline';
+			}
+			else{
+				object.parentNode.childNodes[5].style.display = 'none';
+				object.parentNode.childNodes[3].style.display = 'inline';
+			}
+		}
+	}
+	url='/set';
+	xmlhttp.open("POST",url,true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send('passwd='+passwd);
+}
+function checkNew(object){
+	var  newPasswd = object.value;
+	if(newPasswd == ''||(/^[ ]+$/.test(newPasswd))){
+		object.parentNode.childNodes[5].style.display = 'none';
+		object.parentNode.childNodes[3].style.display = 'inline';
+	}
+	else{
+		object.parentNode.childNodes[3].style.display = 'none';
+		object.parentNode.childNodes[5].style.display = 'inline';
+	}
+}
+function checkConfirm(object){
+	var confirm = object.value;
+	var newPasswd = object.parentNode.parentNode.childNodes[7].childNodes[1].value;
+	if(confirm!=newPasswd){
+		object.parentNode.childNodes[5].style.display = 'none';
+		object.parentNode.childNodes[3].style.display = 'inline';
+	}
+	else{
+		object.parentNode.childNodes[3].style.display = 'none';
+		object.parentNode.childNodes[5].style.display = 'inline';
+	}
+}
+function summit(){
+	if($('origin').value==''||$('origin').parentNode.childNodes[3].style.display=='inline'){
+		alert('初始密码错误!');
+		return;
+	}
+	var newPasswd = $('new').value;
+	if(newPasswd == ''||(/^[ ]+$/.test(newPasswd))){
+		alert('密码不为空!');
+		return;
+	}
+	var confirm = $('confirm').value;
+	if(confirm!=newPasswd){
+		alert('两次输入的密码不一致!');
+		return;
+	}
+	var xmlhttp;
+	if(window.XMLHttpRequest){
+		xmlhttp=new XMLHttpRequest();
+	}
+	else{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			result=JSON.parse(xmlhttp.responseText);
+			if (result.success==1) {
+				alert('修改成功!');
+				window.location.href = '/set';
+			}
+			else{
+				alert('出了点小问题,等下再试试呗');
+			}
+		}
+	}
+	url='/set';
+	xmlhttp.open("POST",url,true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send('newPasswd='+newPasswd);
+}
