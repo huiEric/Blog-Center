@@ -45,5 +45,3 @@ from home import *
 from warehouse import *
 from set import *
 
-if __name__=='__main__':
-    app.run(debug=True)
