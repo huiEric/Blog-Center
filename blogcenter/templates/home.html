@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>博客园 - 个人主页</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/home.css">
+	<script type="text/javascript" src="../static/js/home.js"></script>
+	<script type="text/javascript" src="../static/js/markdown.js"></script>
+</head>
+{% block body %}
+		<div id="nav-bar" onclick="hideSubMenu(document.getElementById('menu'))">
+			<div>
+				<a href="/" id="wonders"><b>博</b></a>
+			</div>
+			<div>
+				<a href="/themes" id="themes" ><i class="fa fa-themes" aria-hidden="true" id="theme-font"></i></a>
+			</div>
+			<div>
+				<a href="/logout" class="logout"><i class="fa fa-logout" aria-hidden="true"></i></a>
+			</div>
+			<div>
+				<a href="/set" class="set"><i class="fa fa-set" aria-hidden="true"></i></a>
+			</div> 
+			<div>
+				<a href="/warehouse" class="warehouse"><i class="fa fa-warehouse"></i></a>
+			</div>
+			<div>
+				<a href="/home" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
+			</div>
+			<div>
+				<a href="/write" class="write"><i class="fa fa-write" aria-hidden="true"></i></a>
+			</div>
+		</div>
+		<div id="left" onclick="hideSubMenu($('menu'))">
+			<img id="head">
+			<div id="hideImgPath">{{imgPath}}</div>
+			<div id="username">{{nickname}}</div>
+			<div id="edit">
+				<a href="javascript:void(0)" id="introduction" onclick="edit()">编辑个人介绍</a>
+				<div id="hideIntro">{{intro}}</div>
+			</div>
+			<ul id="top" type="none">
+				<li>
+					<a href="" id="care">
+						<b>0</b>
+						<div id="care1">关注</div>
+					</a>
+				</li>
+				<li>
+					<a href="" id="fans">
+						<b>0</b>
+						<div id="fans1">粉丝</div>
+					</a>
+				</li>
+			</ul>
+			<ul id="bottom" type="none">
+				<li>
+					<a href="" id="passage">
+						<b>0</b>
+						<div id="passage1">博客</div>
+					</a>
+				</li>
+				<li>
+					<a href="" id="number">
+						<b>0</b>
+						<div id="number1">字数</div>
+					</a>
+				</li>
+				<li>
+					<a href="" id="love">
+						<b>0</b>
+						<div id="love1">收获喜欢</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="center" onclick="hideSubMenu($('menu'))">
+			<div id="navbar">
+				<a href="javascript:void(0)" onclick="underline(this.id)" id="new">最新博客</a>
+				<a href="javascript:void(0)" onclick="underline(this.id)" id="state">最新动态</a>
+				<a href="javascript:void(0)" onclick="underline(this.id)" id="hot">热门博客</a>
+			</div>
+			<div id="newest">
+				<div id="time">{{newPassTime}}</div>
+				<a href="javascript:void(0)" onclick="toPass()" id="title">{{newPassTitle}}</a>
+				<div id="status">
+					<a href="javascript:void(0)" onclick="toPass()">阅读{{readt}}</a>
+					<a href="javascript:void(0)" onclick="toPass()">评论{{commentt}}</a>
+					<span>喜欢{{liket}}</span>
+				</div>
+			</div>
+			<div id="news">
+				{% for p in ps %}
+				<div id="p-container">
+					<div id="p">
+						<span id="label">
+							<i class="fa fa-themes"></i>
+							{{p['category']}}
+						</span>
+						<div class="ti">{{p['title']}}</div>
+						<div class="te">{{p['text']}}</div>
+					</div>
+					<div id="note">
+						<span id="com">评论({{p['comt']}})</span>
+						<span>{{p['time']}}</span>
+						<a href="javascript:void(0)" onclick="del(this)">删除</a>
+					</div>
+					{% for comment in p['comments'] %}
+					<div id="comment">
+						<p>
+							<a href="" id="commentor">{{comment['commentor']}}</a>
+						</p>
+						<span id="commentTime">{{comment['commentTime']}}</span>
+						<div id="commentText">{{comment['comment']}}</div>
+					</div>
+					{% endfor %}
+				</div>
+				{% endfor %}
+				<div id="attend">
+					<div id="attendInfo"><span>{{nickname}}</span>加入博客园</div>
+					<div id="attendTime">2016.07.04 14:45</div>
+				</div>
+			</div>
+		</div>
+		<div id="right" onclick="hideSubMenu($('menu'))"></div>
+		<a href="javascript:void(0)" class="head" data-toggle="dropdown" onclick="displaySubMenu(document.getElementById('menu'))">
+				<img src="../static/pics/qq.png" class="qq">	
+				<b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel" id="menu">
+				<li>
+					<a href="/write">
+						<i class="fa fa-pen"></i>
+						写博客
+					</a>
+				</li>
+				<li>
+					<a href="/home">
+						<i class="fa fa-home"></i>
+						我的个人主页
+					</a>
+				</li>
+				<li>
+					<a href="/warehouse">
+						<i class="fa fa-warehouse"></i>
+						我的仓库
+					</a>
+				</li>
+				<li>
+					<a href="/set">
+						<i class="fa fa-set"></i>
+						设置	
+					</a>
+				</li>
+				<li>
+					<a href="/logout">
+						<i class="fa fa-logout"></i>
+						登出
+					</a>
+				</li>
+			</ul>
+			<div id="pass">
+				
+			</div>
+{% endblock %}
+</html> 
