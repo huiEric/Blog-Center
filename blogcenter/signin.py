@@ -21,6 +21,7 @@ def signin():
             cur.close()
             conn.close()
             return jsonify({'success':0,'error':error})
+        email=cur.fetchmany(cur.execute('select email from basicInfo where nickname=%s',(nickname,)))[0][0]
         session['email']=email
         if 'comment' in session:
             return jsonify({'comment':1})
