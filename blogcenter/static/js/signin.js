@@ -8,7 +8,7 @@ function isEmailValid(email){
     }  
     return true; 
 }
-function checkEmail(id){
+/*function checkEmail(id){
 	email = get(id).value;
 	get('error1').style.display = 'none';
 	if (isEmailValid(email)) {
@@ -20,7 +20,7 @@ function checkEmail(id){
 } 	
 /*function summit(){
 	get('form').summit();
-}
+}*/
 /***
 	Ajax
 		***/
@@ -47,7 +47,7 @@ function summit(){
 			}
 		}
 	}
-	url='/signin'+'?email='+get('email').value+'&passwd='+get('passwd').value;
+	url='/signin'+'?nickname='+get('nickname').value+'&passwd='+get('passwd').value;
 	xmlhttp.open("GET",url,true);
 	xmlhttp.send();
 }
