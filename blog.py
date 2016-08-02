@@ -37,12 +37,12 @@ def connect(host=MYSQL_HOST,port=int(MYSQL_PORT),user=MYSQL_USER,passwd=MYSQL_PA
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS
 
-from index import *
-from themes import *
-from signin import *
-from signup import *
-from write import *
-from home import *
-from warehouse import *
-from set import *
+from blogcenter.index import *
+from blogcenter.themes import *
+from blogcenter.signin import *
+from blogcenter.signup import *
+from blogcenter.write import *
+from blogcenter.home import *
+from blogcenter.warehouse import *
+from blogcenter.set import *
 
