@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>博客园 - Markdown编辑</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/write.css">
+	<script type="text/javascript" src="../static/js/write.js"></script>
+	<script src="../static/js/markdown.js"></script>
+	<script type="text/javascript" src="../static/js/jquery.js"></script>
+</head>
+{% block body %}
+		<div id="nav-bar" onclick="hideSubMenu(document.getElementById('menu'))">
+			<div>
+				<a href="/" id="wonders"><b>博</b></a>
+			</div>
+			<div>
+				<a href="/themes" id="themes" ><i class="fa fa-themes" aria-hidden="true" id="theme-font"></i></a>
+			</div>
+			<div>
+				<a href="/logout" class="logout"><i class="fa fa-logout" aria-hidden="true"></i></a>
+			</div>
+			<div>
+				<a href="/set" class="set"><i class="fa fa-set" aria-hidden="true"></i></a>
+			</div> 
+			<div>
+				<a href="/warehouse" class="warehouse"><i class="fa fa-warehouse"></i></a>
+			</div>
+			<div>
+				<a href="/home" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
+			</div>
+			<div>
+				<a href="/write" class="write"><i class="fa fa-write" aria-hidden="true"></i></a>
+			</div>
+		</div>
+		<div class="bar">
+			<div id="except-qq" onclick="hideSubMenu(document.getElementById('menu'))">
+				<div class="left">
+					<li>
+						<a href="javascript:void(0)" class="title" onclick="getTitle()"><i class="fa fa-title" aria-hidden="true"></i></a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" class="category" onclick="getCategory()"><i class="fa fa-themes" aria-hidden="true"></i></a>
+					</li>
+				</div>
+				<div class="right">
+					<li>	
+						<a href="javascript:void(0)" class="save" onclick="save()"><i class="fa fa-save" aria-hidden="true"></i></a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" class="publish" onclick="publish()"><i class="fa fa-publish" aria-hidden="true"></i></a>
+					</li>
+				</div>
+				<div id="title">{{p['title']}}</div>
+				<div id="category">{{p['category']}}</div>
+			</div>
+			<a href="javascript:void(0)" class="head" data-toggle="dropdown" onclick="displaySubMenu(document.getElementById('menu'))">
+				<img class="qq">
+				<div id="hideImgPath">{{imgPath}}</div>	
+				<b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel" id="menu">
+				<li>
+					<a href="/write">
+						<i class="fa fa-pen"></i>
+						写博客
+					</a>
+				</li>
+				<li>
+					<a href="/home">
+						<i class="fa fa-home"></i>
+						我的个人主页
+					</a>
+				</li>
+				<li>
+					<a href="/warehouse">
+						<i class="fa fa-warehouse"></i>
+						我的仓库
+					</a>
+				</li>
+				<li>
+					<a href="/set">
+						<i class="fa fa-set"></i>
+						设置
+					</a>
+				</li>
+				<li>
+					<a href="/logout">
+						<i class="fa fa-logout"></i>
+						登出
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="rest" onclick="hideSubMenu(document.getElementById('menu'))">
+			<div id="countline">
+				<div id="l1">1</div>
+			</div>
+			<div id="input">	
+				<input type="text" name="input1" id="input1" onkeydown="check(window.event,this.id);" oninput="displayInput(this.id);">
+			</div>
+			<div id="hide">{{p['text']}}</div>
+			<div id="scrollbar"></div>
+	    	<div id="preview"> </div>
+		</div>
+{% endblock %}
+</html> 	
