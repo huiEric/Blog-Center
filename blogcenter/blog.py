@@ -2,7 +2,7 @@
 # coding=utf-8
 
 from flask import Flask,request,jsonify,render_template,session,redirect,url_for
-from werkzeug import secure_filename
+#from werkzeug import secure_filename
 import MySQLdb,os,sys
 
 reload(sys)
