@@ -25,6 +25,8 @@ function isEmailValid(email){
 	Ajax
 		***/
 function summit(){
+	var nickname = get('nickname').value;
+	var passwd = get('passwd').value;
 	var xmlhttp;
 	if(window.XMLHttpRequest){
 		xmlhttp=new XMLHttpRequest();
@@ -47,7 +49,8 @@ function summit(){
 			}
 		}
 	}
-	url='/signin'+'?nickname='+get('nickname').value+'&passwd='+get('passwd').value;
-	xmlhttp.open("GET",url,true);
-	xmlhttp.send();
+	url='/signin';
+	xmlhttp.open("POST",url,true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send('nickname='+nickname+'&passwd='+passwd);
 }

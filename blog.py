@@ -52,3 +52,5 @@ from blogcenter.home import *
 from blogcenter.warehouse import *
 from blogcenter.set import *
 
+#if __name__ == '__main__':
+#    app.run()
