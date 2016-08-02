@@ -17,7 +17,7 @@ app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
 
 from sae.const import (MYSQL_HOST, MYSQL_HOST_S,
     MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
-)
+) 
 
 @app.route('/logout')
 def logout():
