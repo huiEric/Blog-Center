@@ -23,7 +23,7 @@ def themes():
             comment=request.form['comment']
             nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
             a=cur.execute('insert into comment(nickname,title,author,comment) values(%s,%s,%s,%s)',(nickname,title,author,comment))
-            if a==1:
+            if a!=0:
                 commentTimes=int(cur.fetchmany(cur.execute('select commentTimes from blog where title=%s and author=%s',(title,author)))[0][0])
                 cur.execute('update blog set commentTimes=%s where title=%s and author=%s',(commentTimes+1,title,author))
                 commentTime=cur.fetchmany(cur.execute('select distinct commentTime from comment where comment=%s and nickname=%s and title=%s and author=%s',(comment,nickname,title,author)))[0][0]
