@@ -19,6 +19,7 @@ def themes():
     if request.method=='POST':
         title=request.form['title']
         author=request.form['author']
+        return (title and author)
         if 'comment' in request.form:
             comment=request.form['comment']
             nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
