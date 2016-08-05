@@ -19,7 +19,6 @@ def themes():
     if request.method=='POST':
         title=request.form['title']
         author=request.form['author']
-        return title
         if 'comment' in request.form:
             comment=request.form['comment']
             nickname=cur.fetchmany(cur.execute('select nickname from basicInfo where email=%s',(session['email'],)))[0][0]
@@ -38,10 +37,12 @@ def themes():
         readTimes=cur.fetchmany(cur.execute('select readTimes from blog where title=%s and author=%s',(title,author)))[0][0]
         cur.execute('update blog set readTimes=%s where title=%s and author=%s',(int(readTimes)+1,title,author))
         a=cur.fetchmany(cur.execute('select * from blog where author=%s and title=%s',(author,title)))[0]
+        return '1'
         text=a[1]
         category=a[5]
         createTime=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title,author)))[0][0]
         readTimes=a[7]
+        return '2'
         commentTimes=a[8]
         comments=[]
         a=cur.fetchmany(cur.execute('select * from comment where title=%s and author=%s order by commentTime',(title,author)))
@@ -55,6 +56,7 @@ def themes():
         cur.close()
         conn.commit()
         conn.close()
+        return '3'
         return jsonify({'login':login,'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes,'comments':comments})
     if ('comment' in session) and ('email' in session):
         comment=session['comment']
