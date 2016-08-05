@@ -3,7 +3,6 @@
 
 from blog import *
 from blog import connect
-import json
 
 @app.route('/themes',methods=['POST','GET'])
 def themes():
@@ -55,8 +54,8 @@ def themes():
         cur.close()
         conn.commit()
         conn.close()
-        return jsonify({'1':1})
-        return json.dump({'login':login,'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes,'comments':comments})
+        return jsonify({'text':'哈哈哈'})
+        return jsonify({'login':login,'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes,'comments':comments})
     if ('comment' in session) and ('email' in session):
         comment=session['comment']
         session.pop('comment',None)
