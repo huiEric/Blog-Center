@@ -3,6 +3,7 @@
 
 from blog import *
 from blog import connect
+from flask import jsonify
 
 @app.route('/themes',methods=['POST','GET'])
 def themes():
