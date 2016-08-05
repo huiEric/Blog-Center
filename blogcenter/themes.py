@@ -41,7 +41,6 @@ def themes():
         category=a[5]
         createTime=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title,author)))[0][0]
         readTimes=a[7]
-        return '2'
         commentTimes=a[8]
         comments=[]
         a=cur.fetchmany(cur.execute('select * from comment where title=%s and author=%s order by commentTime',(title,author)))
