@@ -6,6 +6,7 @@ from blog import connect
 
 @app.route('/themes',methods=['POST','GET'])
 def themes():
+    print '4'
     conn=connect()
     cur=conn.cursor()
     if 'read' in session:
