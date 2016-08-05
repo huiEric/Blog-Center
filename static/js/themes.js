@@ -201,7 +201,7 @@ function showPassage(title,author,createTime){
 		}
 	}
 	var url = '/themes';
-	xmlhttp.open("POST",url,true);
+	xmlhttp.open("POST",url,false);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send('author='+author+'&title='+title);
 }
