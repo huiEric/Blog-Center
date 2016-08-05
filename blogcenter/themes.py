@@ -37,7 +37,6 @@ def themes():
         readTimes=cur.fetchmany(cur.execute('select readTimes from blog where title=%s and author=%s',(title,author)))[0][0]
         cur.execute('update blog set readTimes=%s where title=%s and author=%s',(int(readTimes)+1,title,author))
         a=cur.fetchmany(cur.execute('select * from blog where author=%s and title=%s',(author,title)))[0]
-        return '1'
         text=a[1]
         category=a[5]
         createTime=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title,author)))[0][0]
