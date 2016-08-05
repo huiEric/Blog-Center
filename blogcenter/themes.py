@@ -54,7 +54,7 @@ def themes():
         cur.close()
         conn.commit()
         conn.close()
-        return jsonify({'login':login,'text':text})
+        return jsonify({'login':login,'text':text,'category':category,'createTime':createTime})
         return jsonify({'login':login,'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes,'comments':comments})
     if ('comment' in session) and ('email' in session):
         comment=session['comment']
