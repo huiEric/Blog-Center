@@ -57,14 +57,14 @@ def connect(charset = 'utf8'):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS
 
-def _create_memcache_client():
-    try:
-        import pylibmc
-        return pylibmc.Client()
-    except ImportError:
-        import memcache
-        return memcache.Client(['127.0.0.1:11211'])
-cache = _create_memcache_client()
+#def _create_memcache_client():
+#    try:
+#        import pylibmc
+#        return pylibmc.Client()
+#    except ImportError:
+#        import memcache
+#        return memcache.Client(['127.0.0.1:11211'])
+#cache = _create_memcache_client()
 
 from blogcenter.index import *
 from blogcenter.themes import *
