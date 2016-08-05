@@ -6,7 +6,6 @@ from blog import connect
 
 @app.route('/themes',methods=['POST','GET'])
 def themes():
-    print '4'
     conn=connect()
     cur=conn.cursor()
     if 'read' in session:
@@ -59,8 +58,6 @@ def themes():
     if ('comment' in session) and ('email' in session):
         comment=session['comment']
         session.pop('comment',None)
-        print '2'
-        return '2'
         return render_template('themes.html',comment=comment)
     a=cur.execute('select * from blog')
     if a!=0:
@@ -90,6 +87,4 @@ def themes():
         ps=[]
         cur.close()
         conn.close()
-    print '1'
-    return '1'
     return render_template('themes.html',ps=ps)
