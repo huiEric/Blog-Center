@@ -15,6 +15,7 @@ def themes():
         author=read['author']
         createTime=cur.fetchmany(cur.execute('select createTime from blog where title=%s and author=%s',(title,author)))[0][0]
         comment={'title':title,'author':author,'createTime':createTime}
+        print '3'
         return render_template('themes.html',comment=comment)
     if request.method=='POST':
         title=request.form['title']
@@ -58,6 +59,7 @@ def themes():
     if ('comment' in session) and ('email' in session):
         comment=session['comment']
         session.pop('comment',None)
+        print '2'
         return render_template('themes.html',comment=comment)
     a=cur.execute('select * from blog')
     if a!=0:
@@ -87,4 +89,5 @@ def themes():
         ps=[]
         cur.close()
         conn.close()
+    print '1'
     return render_template('themes.html',ps=ps)
