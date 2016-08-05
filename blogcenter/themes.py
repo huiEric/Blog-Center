@@ -3,7 +3,7 @@
 
 from blog import *
 from blog import connect
-from flask import jsonify
+import json
 
 @app.route('/themes',methods=['POST','GET'])
 def themes():
@@ -55,7 +55,7 @@ def themes():
         cur.close()
         conn.commit()
         conn.close()
-        return {'login':login,'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes,'comments':comments}
+        return json.dump({'login':login,'text':text,'category':category,'createTime':createTime,'readTimes':readTimes,'commentTimes':commentTimes,'comments':comments})
     if ('comment' in session) and ('email' in session):
         comment=session['comment']
         session.pop('comment',None)
