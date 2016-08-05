@@ -33,6 +33,7 @@ def themes():
             cur.close()
             conn.commit()
             conn.close()
+            return jsonify({'success':success,'nickname':nickname,'comment':comment})
             return jsonify({'success':success,'commentor':nickname,'comment':comment,'commentTime':commentTime})
         readTimes=cur.fetchmany(cur.execute('select readTimes from blog where title=%s and author=%s',(title,author)))[0][0]
         cur.execute('update blog set readTimes=%s where title=%s and author=%s',(int(readTimes)+1,title,author))
